@@ -7,13 +7,18 @@
 //
 
 import XCTest
+import Parse
+import Bolts
 @testable import ParseZero
 
+
+
+@objc
 class ParseZeroTests: XCTestCase {
-    
+
     override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+      super.setUp()
+      ParseZeroObjC.initializeParse()
     }
     
     override func tearDown() {
@@ -22,15 +27,19 @@ class ParseZeroTests: XCTestCase {
     }
     
     func testExample() {
+      PFQuery.clearAllCachedResults()
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
+      let expectation = self.expectationWithDescription("Wait for it...")
+      
+      ParseZero.loadDirectoryAtPath(NSBundle(forClass: ParseZeroTests.self).bundlePath+"/ParseObjects").continueWithBlock { (task) -> AnyObject! in
+        XCTAssert(task.error == nil)
+        XCTAssert(task.exception == nil)
+        expectation.fulfill()
+        return nil
+      }
+      
+      waitForExpectationsWithTimeout(3000.0, handler: nil)
     }
     
 }

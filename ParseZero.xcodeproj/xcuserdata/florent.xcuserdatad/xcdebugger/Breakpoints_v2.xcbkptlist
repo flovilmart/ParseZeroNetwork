@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ParseZeroTests/ParseZeroTests.swift"
+            timestampString = "470010249.760011"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "testExample()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ParseZeroTests.ParseZeroTests.testExample (ParseZeroTests.ParseZeroTests)() -&gt; ()"
+                  moduleName = "ParseZeroTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/florent/src/ParseZero/ParseZeroTests/ParseZeroTests.swift"
+                  timestampString = "470016101.329767"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "240">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ParseZeroTests.ParseZeroTests.(testExample (ParseZeroTests.ParseZeroTests) -&gt; () -&gt; ()).(closure #1)"
+                  moduleName = "ParseZeroTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/florent/src/ParseZero/ParseZeroTests/ParseZeroTests.swift"
+                  timestampString = "470016101.330048"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ParseZeroTests/ParseZeroTests.swift"
+            timestampString = "470010249.760011"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "testExample()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ParseZeroTests.ParseZeroTests.(testExample (ParseZeroTests.ParseZeroTests) -&gt; () -&gt; ()).(closure #1)"
+                  moduleName = "ParseZeroTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/florent/src/ParseZero/ParseZeroTests/ParseZeroTests.swift"
+                  timestampString = "469998779.677705"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "224">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ParseZeroTests.ParseZeroTests.(testExample (ParseZeroTests.ParseZeroTests) -&gt; () -&gt; ()).(closure #1).(implicit closure #2)"
+                  moduleName = "ParseZeroTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/florent/src/ParseZero/ParseZeroTests/ParseZeroTests.swift"
+                  timestampString = "469998779.678092"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "29">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

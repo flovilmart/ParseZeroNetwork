@@ -1,0 +1,20 @@
+{
+  "results": [
+    {
+      "owningId": "1",
+      "relatedId": "4"
+    },
+    {
+      "owningId": "1",
+      "relatedId": "5"
+    },
+    {
+      "owningId": "1",
+      "relatedId": "6"
+    },
+    {
+      "owningId": "2",
+      "relatedId": "4"
+    },
+  ]
+}

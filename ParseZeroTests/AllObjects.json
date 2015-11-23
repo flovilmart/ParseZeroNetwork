@@ -1,0 +1,48 @@
+{
+  "ClassA": [
+            {
+              "objectId": "1",
+             "b": {
+             "__type": "Pointer",
+             "className": "ClassB",
+             "objectId": "4"
+             }
+            },
+             {
+              "objectId": "2",
+             },
+             {
+              "objectId": "3",
+             }
+  ],
+  "ClassB": [
+            {
+            "objectId": "4",
+             "name": "Object4"
+            },
+             {
+             "objectId": "5"
+             },
+             {
+             "objectId": "6"
+             }
+  ],
+  "_Join:bs:ClassA:ClassB": [
+    {
+      "owningId": "1",
+      "relatedId": "4"
+    },
+    {
+      "owningId": "1",
+      "relatedId": "5"
+    },
+    {
+      "owningId": "1",
+      "relatedId": "6"
+    },
+    {
+      "owningId": "2",
+      "relatedId": "4"
+    },
+  ]
+}

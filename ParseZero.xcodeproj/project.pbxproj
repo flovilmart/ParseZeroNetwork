@@ -7,9 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4AD907171C03C2FF004C2CFC /* ParseZeroObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */; };
+		4AD907191C03C64F004C2CFC /* BFTask+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */; };
+		4AD9071B1C03CADC004C2CFC /* AllObjects.json in Resources */ = {isa = PBXBuildFile; fileRef = 4AD9071A1C03CADC004C2CFC /* AllObjects.json */; };
+		4AD9071F1C03DF7E004C2CFC /* _Join:bs:ClassA:ClassB.json in Resources */ = {isa = PBXBuildFile; fileRef = 4AD9071C1C03DF7E004C2CFC /* _Join:bs:ClassA:ClassB.json */; };
+		4AD907201C03DF7E004C2CFC /* ClassA.json in Resources */ = {isa = PBXBuildFile; fileRef = 4AD9071D1C03DF7E004C2CFC /* ClassA.json */; };
+		4AD907211C03DF7E004C2CFC /* ClassB.json in Resources */ = {isa = PBXBuildFile; fileRef = 4AD9071E1C03DF7E004C2CFC /* ClassB.json */; };
+		4AD907221C03DF88004C2CFC /* _Join:bs:ClassA:ClassB.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AD9071C1C03DF7E004C2CFC /* _Join:bs:ClassA:ClassB.json */; };
+		4AD907231C03DF88004C2CFC /* ClassA.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AD9071D1C03DF7E004C2CFC /* ClassA.json */; };
+		4AD907241C03DF88004C2CFC /* ClassB.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AD9071E1C03DF7E004C2CFC /* ClassB.json */; };
 		4AF827851C0381C400C51B6B /* ParseZero.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AF827841C0381C400C51B6B /* ParseZero.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4AF8278C1C0381C400C51B6B /* ParseZero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827811C0381C400C51B6B /* ParseZero.framework */; };
 		4AF827911C0381C400C51B6B /* ParseZeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827901C0381C400C51B6B /* ParseZeroTests.swift */; };
+		4AF8279C1C03827100C51B6B /* ParseZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8279B1C03827100C51B6B /* ParseZero.swift */; };
+		4AF8279F1C0382AA00C51B6B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF8279D1C0382AA00C51B6B /* Bolts.framework */; };
+		4AF827A01C0382AA00C51B6B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF8279E1C0382AA00C51B6B /* Parse.framework */; };
+		4AF827A21C0382D400C51B6B /* ClassImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827A11C0382D400C51B6B /* ClassImporter.swift */; };
+		4AF827A41C0382DE00C51B6B /* RelationImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827A31C0382DE00C51B6B /* RelationImporter.swift */; };
+		4AF827A61C0385BD00C51B6B /* Importer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827A51C0385BD00C51B6B /* Importer.swift */; };
+		4AF827A71C038AE200C51B6B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF8279D1C0382AA00C51B6B /* Bolts.framework */; };
+		4AF827A81C038AE300C51B6B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF8279E1C0382AA00C51B6B /* Parse.framework */; };
+		4AF827C01C038BF400C51B6B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */; };
+		4AF827C21C038BFE00C51B6B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */; };
+		4AF827C61C038C1300C51B6B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C51C038C1300C51B6B /* AudioToolbox.framework */; };
+		4AF827C81C038CB700C51B6B /* ParseZeroError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827C71C038CB700C51B6B /* ParseZeroError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,13 +43,45 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4AF827C91C038DD700C51B6B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ParseObjects;
+			dstSubfolderSpec = 7;
+			files = (
+				4AD907221C03DF88004C2CFC /* _Join:bs:ClassA:ClassB.json in CopyFiles */,
+				4AD907231C03DF88004C2CFC /* ClassA.json in CopyFiles */,
+				4AD907241C03DF88004C2CFC /* ClassB.json in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4AD907151C03C2FE004C2CFC /* ParseZeroTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ParseZeroTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseZeroObjC.m; sourceTree = "<group>"; };
+		4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BFTask+Additions.swift"; sourceTree = "<group>"; };
+		4AD9071A1C03CADC004C2CFC /* AllObjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = AllObjects.json; path = ParseZeroTests/AllObjects.json; sourceTree = SOURCE_ROOT; };
+		4AD9071C1C03DF7E004C2CFC /* _Join:bs:ClassA:ClassB.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "_Join:bs:ClassA:ClassB.json"; sourceTree = "<group>"; };
+		4AD9071D1C03DF7E004C2CFC /* ClassA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClassA.json; sourceTree = "<group>"; };
+		4AD9071E1C03DF7E004C2CFC /* ClassB.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClassB.json; sourceTree = "<group>"; };
 		4AF827811C0381C400C51B6B /* ParseZero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ParseZero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF827841C0381C400C51B6B /* ParseZero.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseZero.h; sourceTree = "<group>"; };
 		4AF827861C0381C400C51B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AF8278B1C0381C400C51B6B /* ParseZeroTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ParseZeroTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF827901C0381C400C51B6B /* ParseZeroTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseZeroTests.swift; sourceTree = "<group>"; };
 		4AF827921C0381C400C51B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AF8279B1C03827100C51B6B /* ParseZero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseZero.swift; sourceTree = "<group>"; };
+		4AF8279D1C0382AA00C51B6B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ParseZero/Bolts.framework; sourceTree = "<group>"; };
+		4AF8279E1C0382AA00C51B6B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ParseZero/Parse.framework; sourceTree = "<group>"; };
+		4AF827A11C0382D400C51B6B /* ClassImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassImporter.swift; sourceTree = "<group>"; };
+		4AF827A31C0382DE00C51B6B /* RelationImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationImporter.swift; sourceTree = "<group>"; };
+		4AF827A51C0385BD00C51B6B /* Importer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
+		4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4AF827C51C038C1300C51B6B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		4AF827C71C038CB700C51B6B /* ParseZeroError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseZeroError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +89,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF827C61C038C1300C51B6B /* AudioToolbox.framework in Frameworks */,
+				4AF827C21C038BFE00C51B6B /* SystemConfiguration.framework in Frameworks */,
+				4AF827C01C038BF400C51B6B /* libsqlite3.tbd in Frameworks */,
+				4AF827A01C0382AA00C51B6B /* Parse.framework in Frameworks */,
+				4AF8279F1C0382AA00C51B6B /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +102,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AF8278C1C0381C400C51B6B /* ParseZero.framework in Frameworks */,
+				4AF827A81C038AE300C51B6B /* Parse.framework in Frameworks */,
+				4AF827A71C038AE200C51B6B /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +113,7 @@
 		4AF827771C0381C400C51B6B = {
 			isa = PBXGroup;
 			children = (
+				4AF827BE1C038BE200C51B6B /* Frameworks */,
 				4AF827831C0381C400C51B6B /* ParseZero */,
 				4AF8278F1C0381C400C51B6B /* ParseZeroTests */,
 				4AF827821C0381C400C51B6B /* Products */,
@@ -72,6 +133,12 @@
 			isa = PBXGroup;
 			children = (
 				4AF827841C0381C400C51B6B /* ParseZero.h */,
+				4AF8279B1C03827100C51B6B /* ParseZero.swift */,
+				4AF827C71C038CB700C51B6B /* ParseZeroError.swift */,
+				4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */,
+				4AF827A51C0385BD00C51B6B /* Importer.swift */,
+				4AF827A11C0382D400C51B6B /* ClassImporter.swift */,
+				4AF827A31C0382DE00C51B6B /* RelationImporter.swift */,
 				4AF827861C0381C400C51B6B /* Info.plist */,
 			);
 			path = ParseZero;
@@ -80,10 +147,36 @@
 		4AF8278F1C0381C400C51B6B /* ParseZeroTests */ = {
 			isa = PBXGroup;
 			children = (
+				4AF827A91C038BB800C51B6B /* ParseObjects */,
 				4AF827901C0381C400C51B6B /* ParseZeroTests.swift */,
+				4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */,
 				4AF827921C0381C400C51B6B /* Info.plist */,
+				4AD907151C03C2FE004C2CFC /* ParseZeroTests-Bridging-Header.h */,
 			);
 			path = ParseZeroTests;
+			sourceTree = "<group>";
+		};
+		4AF827A91C038BB800C51B6B /* ParseObjects */ = {
+			isa = PBXGroup;
+			children = (
+				4AD9071C1C03DF7E004C2CFC /* _Join:bs:ClassA:ClassB.json */,
+				4AD9071D1C03DF7E004C2CFC /* ClassA.json */,
+				4AD9071E1C03DF7E004C2CFC /* ClassB.json */,
+				4AD9071A1C03CADC004C2CFC /* AllObjects.json */,
+			);
+			path = ParseObjects;
+			sourceTree = "<group>";
+		};
+		4AF827BE1C038BE200C51B6B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4AF827C51C038C1300C51B6B /* AudioToolbox.framework */,
+				4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */,
+				4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */,
+				4AF8279D1C0382AA00C51B6B /* Bolts.framework */,
+				4AF8279E1C0382AA00C51B6B /* Parse.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +218,7 @@
 				4AF827871C0381C400C51B6B /* Sources */,
 				4AF827881C0381C400C51B6B /* Frameworks */,
 				4AF827891C0381C400C51B6B /* Resources */,
+				4AF827C91C038DD700C51B6B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -184,6 +278,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AD907201C03DF7E004C2CFC /* ClassA.json in Resources */,
+				4AD9071F1C03DF7E004C2CFC /* _Join:bs:ClassA:ClassB.json in Resources */,
+				4AD9071B1C03CADC004C2CFC /* AllObjects.json in Resources */,
+				4AD907211C03DF7E004C2CFC /* ClassB.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +292,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF827A21C0382D400C51B6B /* ClassImporter.swift in Sources */,
+				4AF827A41C0382DE00C51B6B /* RelationImporter.swift in Sources */,
+				4AD907191C03C64F004C2CFC /* BFTask+Additions.swift in Sources */,
+				4AF827C81C038CB700C51B6B /* ParseZeroError.swift in Sources */,
+				4AF8279C1C03827100C51B6B /* ParseZero.swift in Sources */,
+				4AF827A61C0385BD00C51B6B /* Importer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AF827911C0381C400C51B6B /* ParseZeroTests.swift in Sources */,
+				4AD907171C03C2FF004C2CFC /* ParseZeroObjC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,26 +413,37 @@
 		4AF827961C0381C400C51B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ParseZero",
+				);
 				INFOPLIST_FILE = ParseZero/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		4AF827971C0381C400C51B6B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ParseZero",
+				);
 				INFOPLIST_FILE = ParseZero/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -340,20 +456,33 @@
 		4AF827991C0381C400C51B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ParseZero",
+				);
 				INFOPLIST_FILE = ParseZeroTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZeroTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ParseZeroTests/ParseZeroTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		4AF8279A1C0381C400C51B6B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ParseZero",
+				);
 				INFOPLIST_FILE = ParseZeroTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZeroTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ParseZeroTests/ParseZeroTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -376,6 +505,7 @@
 				4AF827971C0381C400C51B6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4AF827981C0381C400C51B6B /* Build configuration list for PBXNativeTarget "ParseZeroTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +514,7 @@
 				4AF8279A1C0381C400C51B6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
