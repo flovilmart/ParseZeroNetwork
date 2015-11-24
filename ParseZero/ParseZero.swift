@@ -73,8 +73,10 @@ public class ParseZero:NSObject {
       return memo
     }
     
-    return ClassImporter.importAll(result.classes).continueWithBlock{ (task) -> AnyObject! in
-      return RelationImporter.importAll(result.joins)
+    return ClassImporter.importAll(result.classes).continueWithBlock{ (classTasks) -> AnyObject! in
+      return RelationImporter.importAll(result.joins).continueWithBlock({ (relationTasks) -> AnyObject? in
+        return BFTask(forCompletionOfAllTasksWithResults: [classTasks, relationTasks])
+      })
     }
 
   }
@@ -129,8 +131,10 @@ public class ParseZero:NSObject {
       return memo
     }
     
-    return ClassImporter.importFiles(urls.classes).continueWithBlock { (task) -> AnyObject! in
-      return RelationImporter.importFiles(urls.joins)
+    return ClassImporter.importFiles(urls.classes).continueWithBlock { (classTasks) -> AnyObject! in
+      return RelationImporter.importFiles(urls.joins).continueWithBlock({ (relationTasks) -> AnyObject? in
+        return BFTask(forCompletionOfAllTasksWithResults: [classTasks, relationTasks])
+      })
     }
   }
   

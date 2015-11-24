@@ -1,0 +1,10 @@
+framework module ParseZero {
+  umbrella header "ParseZero.h"
+
+  export *
+  module * { export * }
+}
+
+module ParseZero.Swift {
+    header "ParseZero-Swift.h"
+}

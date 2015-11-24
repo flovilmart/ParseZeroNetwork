@@ -24,9 +24,9 @@ internal struct ClassImporter:Importer {
       return PFQuery(className: className, predicate: NSPredicate(format: "objectId == %@", objectId!))
         .fromLocalDatastore()
         .ignoreACLs()
-        .getFirstObjectInBackground()
+        .findObjectsInBackground()
         .continueWithBlock({ (task) -> AnyObject! in
-          if task.result == nil || task.error != nil {
+          if let objects = task.result as? [PFObject] where objects.count == 0 || task.result == nil || task.error != nil {
             return self.pinObject(className, objectJSON: objectJSON)
           }
           return BFTask(result: true)

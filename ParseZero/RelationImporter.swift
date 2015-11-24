@@ -28,23 +28,56 @@ struct RelationImporter:Importer {
     return importRelations(forClassName: ownerClassName, onKey: relationKey, targetClassName: targetClassName, objects: objects)
   }
   
+  static func validateObjects(objects:[[String : AnyObject]]) -> BFTask?
+  {
+
+    let errors = objects.reduce([BFTask]()) { (var memo, object) -> [BFTask] in
+      guard
+        let _ = object["owningId"] as? String,
+        let _ = object["relatedId"] as? String
+        
+        else{
+          memo.append(BFTask.pzero_error(.InvalidRelationObject, userInfo: ["object": object]))
+          return memo
+      }
+      return memo
+    }
+    
+    if errors.count > 0 {
+      return BFTask(forCompletionOfAllTasksWithResults: errors)
+    }
+    
+    return nil
+  }
+  
   static func importRelations(forClassName ownerClassName:String,onKey relationKey:String, targetClassName:String, objects:[[String : AnyObject]]) -> BFTask {
     
     print("Doing Relation \(ownerClassName).\(relationKey) -> \(targetClassName)")
     
-    return objects.map({ (object) -> BFTask in
-      
-      
+    if let error = self.validateObjects(objects) {
+      return error
+    }
+    
+    return objects.reduce([String:[PFObject]](), combine: { (var memo, object) -> [String:[PFObject]] in
       guard
-        
         let owningId = object["owningId"] as? String,
         let relatedId = object["relatedId"] as? String
-        
-      else{
-        //          assert(false,"Invalid relation object definition\n\nRelation definition should have owningId and relatedId keys")
-        return BFTask.pzero_error(.InvalidRelationObject, userInfo: ["object": object])
+      
+        else{
+          return memo
       }
       
+      if memo[owningId] == nil {
+        memo[owningId] = [PFObject]()
+      }
+      memo[owningId]!.append(PFObject(withoutDataWithClassName: targetClassName, objectId: relatedId))
+      
+      return memo
+    }).map({ (relations) -> BFTask in
+      
+      let owningId = relations.0
+      
+      // Fetch the owning id
       return PFQuery(className: ownerClassName, predicate: NSPredicate(format: "objectId == %@", owningId))
         .fromLocalDatastore()
         .ignoreACLs()
@@ -54,14 +87,20 @@ struct RelationImporter:Importer {
             return task
           }
           
-          let relation = sourceObject.relationForKey(relationKey)
-          let targetObject = PFObject(withoutDataWithClassName: targetClassName, objectId: relatedId)
-          relation.addObject(targetObject)
+          let relatedObjects = relations.1
+          for object in relatedObjects {
+            sourceObject.relationForKey(relationKey).addObject(object)
+          }
+          
           return sourceObject.pinInBackground().continueWithBlock({ (task) -> AnyObject! in
             print("\(task.result) \(task.error) \(task.exception)")
+                        sourceObject.relationForKey("bs").query().fromLocalDatastore().ignoreACLs().findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+                          print("\(sourceObject.parseClassName) \(sourceObject.objectId) : \(objects?.count)")
+                        })
+            
             return task
           })
-        
+          
         })
       
     }).taskForCompletionOfAll()

@@ -18,8 +18,6 @@
 		4A26C3691C049ED800E5F505 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */; };
 		4A26C3791C04A55E00E5F505 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3751C04A55600E5F505 /* Bolts.framework */; };
 		4A26C37A1C04A55E00E5F505 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3761C04A55600E5F505 /* Parse.framework */; };
-		4A26C37B1C04A55E00E5F505 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3751C04A55600E5F505 /* Bolts.framework */; };
-		4A26C37C1C04A55F00E5F505 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3761C04A55600E5F505 /* Parse.framework */; };
 		4ABC1EBC1C03F3B800FE1F59 /* Malformed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */; };
 		4AD907171C03C2FF004C2CFC /* ParseZeroObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */; };
 		4AD907191C03C64F004C2CFC /* BFTask+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */; };
@@ -117,8 +115,6 @@
 				4A26C3691C049ED800E5F505 /* libsqlite3.tbd in Frameworks */,
 				4A26C3681C049ED200E5F505 /* SystemConfiguration.framework in Frameworks */,
 				4A26C3671C049ED200E5F505 /* AudioToolbox.framework in Frameworks */,
-				4A26C37B1C04A55E00E5F505 /* Bolts.framework in Frameworks */,
-				4A26C37C1C04A55F00E5F505 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +246,7 @@
 			buildPhases = (
 				4A26C34C1C049E2400E5F505 /* Sources */,
 				4A26C34D1C049E2400E5F505 /* Frameworks */,
+				4A26C3981C04AFC500E5F505 /* ShellScript */,
 				4A26C34E1C049E2400E5F505 /* Resources */,
 			);
 			buildRules = (
@@ -288,6 +285,7 @@
 				4AF827881C0381C400C51B6B /* Frameworks */,
 				4AF827891C0381C400C51B6B /* Resources */,
 				4AF827C91C038DD700C51B6B /* CopyFiles */,
+				4A26C39B1C04B17800E5F505 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -373,6 +371,40 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4A26C3981C04AFC500E5F505 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Bolts.framework",
+				"$(SRCROOT)/Parse.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			showEnvVarsInLog = 0;
+		};
+		4A26C39B1C04B17800E5F505 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Bolts.framework",
+				"$(SRCROOT)/Parse.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4A26C34C1C049E2400E5F505 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -451,6 +483,7 @@
 				);
 				INFOPLIST_FILE = ParseZeroHost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZeroHost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -467,6 +500,7 @@
 				);
 				INFOPLIST_FILE = ParseZeroHost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZeroHost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -565,6 +599,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_MODULES_AUTOLINK = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -578,10 +613,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ParseZero";
-				OTHER_LDFLAGS = (
-					"-undefined",
-					dynamic_lookup,
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -593,6 +625,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_MODULES_AUTOLINK = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -606,10 +639,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ParseZero";
-				OTHER_LDFLAGS = (
-					"-undefined",
-					dynamic_lookup,
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
