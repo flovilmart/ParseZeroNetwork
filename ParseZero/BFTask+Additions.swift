@@ -11,7 +11,7 @@ import Bolts
 
 internal extension BFTask
 {
-  internal static func pzero_error(code:PZeroErrorCode = .UnknownError, userInfo:[NSObject:AnyObject] = [NSObject:AnyObject]()) -> BFTask
+  internal static func pzero_error(code:PZeroErrorCode, userInfo:[NSObject:AnyObject] = [NSObject:AnyObject]()) -> BFTask
   {
     return BFTask(error: NSError.pzero_error(code, userInfo: userInfo))
   }

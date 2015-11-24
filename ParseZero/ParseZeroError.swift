@@ -13,7 +13,6 @@ internal let kPZeroErrorDomain = "com.flovilmart.parsezero"
 
 enum PZeroErrorCode:Int
 {
-  case UnknownError = -1
   case CannotStatDirectory = 1
   case InvalidRelationObject = 2
   case CannotLoadFile = 3
@@ -30,15 +29,13 @@ enum PZeroErrorCode:Int
       return "Cannot Load File, it may not exist"
     case .InvalidJSON:
       return "The JSON in the file is badly formed"
-    default:
-      return "Unknown Error"
     }
   }
 }
 
 internal extension NSError
 {
-  internal static func pzero_error(code:PZeroErrorCode = .UnknownError, var userInfo:[NSObject:AnyObject] = [NSObject:AnyObject]()) -> NSError
+  internal static func pzero_error(code:PZeroErrorCode, var userInfo:[NSObject:AnyObject] = [NSObject:AnyObject]()) -> NSError
   {
     if userInfo[NSLocalizedDescriptionKey] == nil
     {
