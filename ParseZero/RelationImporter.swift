@@ -42,7 +42,7 @@ struct RelationImporter:Importer {
         
       else{
         //          assert(false,"Invalid relation object definition\n\nRelation definition should have owningId and relatedId keys")
-        return BFTask.pzero_error()
+        return BFTask.pzero_error(.InvalidRelationObject, userInfo: ["object": object])
       }
       
       return PFQuery(className: ownerClassName, predicate: NSPredicate(format: "objectId == %@", owningId))

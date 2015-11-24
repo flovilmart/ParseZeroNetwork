@@ -51,14 +51,14 @@ public class ParseZero:NSObject {
   public static func loadJSONAtPath(path:String) -> BFTask
   {
     guard let data = NSData(contentsOfURL: NSURL(fileURLWithPath: path))
-      else { return BFTask.pzero_error() }
+      else { return BFTask.pzero_error(.CannotLoadFile, userInfo: ["path": path]) }
     
     let JSONObject:[String : ResultArray]!
     
     do
     {
       JSONObject = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String : [[String : AnyObject]]]
-    } catch { return BFTask.pzero_error() }
+    } catch { return BFTask.pzero_error(.InvalidJSON, userInfo: ["path": path]) }
     
     let initial = (classes:[ResultTuple](),joins:[ResultTuple]())
     
@@ -97,7 +97,7 @@ public class ParseZero:NSObject {
     do
     {
       contents = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(path);
-    } catch { return BFTask.pzero_error() }
+    } catch { return BFTask.pzero_error(.CannotStatDirectory, userInfo: ["path":path]) }
     
     
     let files = contents.map { (filePath) -> NSURL in
