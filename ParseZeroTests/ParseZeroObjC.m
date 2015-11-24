@@ -16,6 +16,10 @@
 + (void)initializeParse
 {
   if (![Parse isLocalDatastoreEnabled]) {
+    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+    NSString *privateDocuments = [library stringByAppendingPathComponent:@"Private Documents"];
+    NSString *directoryPath = [privateDocuments stringByAppendingPathComponent:@"Parse"];
+    [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:nil];
     [Parse enableLocalDatastore];
     [Parse setApplicationId:@"AAAAAAAAAAAA" clientKey:@"AAAAAAAAAAAA"];
   }

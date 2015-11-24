@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4ABC1EBC1C03F3B800FE1F59 /* Malformed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */; };
 		4AD907171C03C2FF004C2CFC /* ParseZeroObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */; };
 		4AD907191C03C64F004C2CFC /* BFTask+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */; };
 		4AD9071B1C03CADC004C2CFC /* AllObjects.json in Resources */ = {isa = PBXBuildFile; fileRef = 4AD9071A1C03CADC004C2CFC /* AllObjects.json */; };
@@ -59,6 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Malformed.json; path = ParseZeroTests/Malformed.json; sourceTree = SOURCE_ROOT; };
 		4AD907151C03C2FE004C2CFC /* ParseZeroTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ParseZeroTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseZeroObjC.m; sourceTree = "<group>"; };
 		4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BFTask+Additions.swift"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				4AD9071D1C03DF7E004C2CFC /* ClassA.json */,
 				4AD9071E1C03DF7E004C2CFC /* ClassB.json */,
 				4AD9071A1C03CADC004C2CFC /* AllObjects.json */,
+				4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */,
 			);
 			path = ParseObjects;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				4AD907201C03DF7E004C2CFC /* ClassA.json in Resources */,
 				4AD9071F1C03DF7E004C2CFC /* _Join:bs:ClassA:ClassB.json in Resources */,
 				4AD9071B1C03CADC004C2CFC /* AllObjects.json in Resources */,
+				4ABC1EBC1C03F3B800FE1F59 /* Malformed.json in Resources */,
 				4AD907211C03DF7E004C2CFC /* ClassB.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

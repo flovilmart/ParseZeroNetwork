@@ -41,5 +41,47 @@ class ParseZeroTests: XCTestCase {
       
       waitForExpectationsWithTimeout(3000.0, handler: nil)
     }
+  
+  func testLoadInvalidFile() {
+    XCTAssertNil(ClassImporter.loadFileAtURL(NSURL(fileURLWithPath:"/some/file")))
+  }
+  
+  func testLoadInvalidDirectory() {
+    XCTAssertNotNil(ParseZero.loadDirectoryAtPath("/some/file").error)
+  }
+  func testLoadInvalidJSON() {
+    XCTAssertNotNil(ParseZero.loadJSONAtPath("/some/file").error)
+  }
+  
+  func testLoadMalformedJSON() {
+    let jsonPath = NSBundle(forClass: ParseZeroTests.self).pathForResource("Malformed", ofType: "json")!
+    let jsonURL = NSURL(fileURLWithPath: jsonPath)
+    XCTAssertNotNil(ParseZero.loadJSONAtPath(jsonPath))
     
+    XCTAssertNil(ClassImporter.loadFileAtURL(jsonURL))
+    XCTAssertNotNil(ClassImporter.importFileAtURL(jsonURL).result, "Should return a task with result")
+  }
+  
+  func testNoResultInJSON() {
+    let jsonPath = NSBundle(forClass: ParseZeroTests.self).pathForResource("AllObjects", ofType: "json")!
+    let jsonURL = NSURL(fileURLWithPath: jsonPath)
+    XCTAssertNil(ClassImporter.loadFileAtURL(jsonURL))
+  }
+  
+  func testInvalidRelationKeys() {
+    XCTAssertNotNil(RelationImporter.importRelations(forClassName: "AClass", onKey: "a", targetClassName: "OtherClass", objects: [["key":"value", "otherKey": "OtherVlaue"]]).error)
+  }
+  
+  func testRelationNotFoundObject() {
+    let expectation = self.expectationWithDescription("wait")
+    
+    RelationImporter.importRelations(forClassName: "ClassA", onKey: "a", targetClassName: "ClassA", objects: [["owningId":"value", "relatedId": "OtherVlaue"]]).continueWithBlock { (task) -> AnyObject! in
+      XCTAssertNotNil(task.result)
+      expectation.fulfill()
+      return task
+    }
+    waitForExpectationsWithTimeout(10.0, handler: nil)
+    
+  }
+
 }

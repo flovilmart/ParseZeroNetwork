@@ -41,7 +41,8 @@ struct RelationImporter:Importer {
         let relatedId = object["relatedId"] as? String
         
       else{
-          assert(false,"Invalid relation object definition\n\nRelation definition should have owningId and relatedId keys")
+        //          assert(false,"Invalid relation object definition\n\nRelation definition should have owningId and relatedId keys")
+        return BFTask.pzero_error()
       }
       
       return PFQuery(className: ownerClassName, predicate: NSPredicate(format: "objectId == %@", owningId))
@@ -50,9 +51,6 @@ struct RelationImporter:Importer {
         .findObjectsInBackground()
         .continueWithBlock({ (task) -> AnyObject! in
           guard let results = task.result as? [PFObject], let sourceObject = results.first else {
-            if let error = task.error where error.code == PFErrorCode.ErrorObjectNotFound.rawValue {
-              return BFTask(result: true)
-            }
             return task
           }
           
@@ -64,11 +62,6 @@ struct RelationImporter:Importer {
             return task
           })
         
-        }).continueWithBlock({ (task) -> AnyObject! in
-          if let _ = task.error {
-            return BFTask(result: true)
-          }
-          return task
         })
       
     }).taskForCompletionOfAll()
