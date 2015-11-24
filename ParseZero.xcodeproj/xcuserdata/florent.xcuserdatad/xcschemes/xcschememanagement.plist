@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>ParseZeroHost.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>4A26C34F1C049E2400E5F505</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4AF827801C0381C400C51B6B</key>
 		<dict>
 			<key>primary</key>

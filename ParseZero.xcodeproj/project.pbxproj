@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A26C3531C049E2400E5F505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A26C3521C049E2400E5F505 /* AppDelegate.swift */; };
+		4A26C3551C049E2400E5F505 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A26C3541C049E2400E5F505 /* ViewController.swift */; };
+		4A26C3581C049E2400E5F505 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A26C3561C049E2400E5F505 /* Main.storyboard */; };
+		4A26C35A1C049E2400E5F505 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A26C3591C049E2400E5F505 /* Assets.xcassets */; };
+		4A26C35D1C049E2400E5F505 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A26C35B1C049E2400E5F505 /* LaunchScreen.storyboard */; };
+		4A26C3661C049EA100E5F505 /* AllObjects.json in Resources */ = {isa = PBXBuildFile; fileRef = 4AD9071A1C03CADC004C2CFC /* AllObjects.json */; };
+		4A26C3671C049ED200E5F505 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C51C038C1300C51B6B /* AudioToolbox.framework */; };
+		4A26C3681C049ED200E5F505 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */; };
+		4A26C3691C049ED800E5F505 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */; };
+		4A26C3791C04A55E00E5F505 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3751C04A55600E5F505 /* Bolts.framework */; };
+		4A26C37A1C04A55E00E5F505 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3761C04A55600E5F505 /* Parse.framework */; };
+		4A26C37B1C04A55E00E5F505 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3751C04A55600E5F505 /* Bolts.framework */; };
+		4A26C37C1C04A55F00E5F505 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3761C04A55600E5F505 /* Parse.framework */; };
 		4ABC1EBC1C03F3B800FE1F59 /* Malformed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */; };
 		4AD907171C03C2FF004C2CFC /* ParseZeroObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */; };
 		4AD907191C03C64F004C2CFC /* BFTask+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */; };
@@ -21,13 +34,9 @@
 		4AF8278C1C0381C400C51B6B /* ParseZero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827811C0381C400C51B6B /* ParseZero.framework */; };
 		4AF827911C0381C400C51B6B /* ParseZeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827901C0381C400C51B6B /* ParseZeroTests.swift */; };
 		4AF8279C1C03827100C51B6B /* ParseZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8279B1C03827100C51B6B /* ParseZero.swift */; };
-		4AF8279F1C0382AA00C51B6B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF8279D1C0382AA00C51B6B /* Bolts.framework */; };
-		4AF827A01C0382AA00C51B6B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF8279E1C0382AA00C51B6B /* Parse.framework */; };
 		4AF827A21C0382D400C51B6B /* ClassImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827A11C0382D400C51B6B /* ClassImporter.swift */; };
 		4AF827A41C0382DE00C51B6B /* RelationImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827A31C0382DE00C51B6B /* RelationImporter.swift */; };
 		4AF827A61C0385BD00C51B6B /* Importer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827A51C0385BD00C51B6B /* Importer.swift */; };
-		4AF827A71C038AE200C51B6B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF8279D1C0382AA00C51B6B /* Bolts.framework */; };
-		4AF827A81C038AE300C51B6B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF8279E1C0382AA00C51B6B /* Parse.framework */; };
 		4AF827C01C038BF400C51B6B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */; };
 		4AF827C21C038BFE00C51B6B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */; };
 		4AF827C61C038C1300C51B6B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C51C038C1300C51B6B /* AudioToolbox.framework */; };
@@ -35,6 +44,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4A26C3621C049E3C00E5F505 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AF827781C0381C400C51B6B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4AF827801C0381C400C51B6B;
+			remoteInfo = ParseZero;
+		};
 		4AF8278D1C0381C400C51B6B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4AF827781C0381C400C51B6B /* Project object */;
@@ -60,6 +76,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A26C3501C049E2400E5F505 /* ParseZeroHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParseZeroHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A26C3521C049E2400E5F505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4A26C3541C049E2400E5F505 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4A26C3571C049E2400E5F505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4A26C3591C049E2400E5F505 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4A26C35C1C049E2400E5F505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4A26C35E1C049E2400E5F505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A26C3751C04A55600E5F505 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		4A26C3761C04A55600E5F505 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Malformed.json; path = ParseZeroTests/Malformed.json; sourceTree = SOURCE_ROOT; };
 		4AD907151C03C2FE004C2CFC /* ParseZeroTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ParseZeroTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseZeroObjC.m; sourceTree = "<group>"; };
@@ -75,8 +100,6 @@
 		4AF827901C0381C400C51B6B /* ParseZeroTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseZeroTests.swift; sourceTree = "<group>"; };
 		4AF827921C0381C400C51B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AF8279B1C03827100C51B6B /* ParseZero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseZero.swift; sourceTree = "<group>"; };
-		4AF8279D1C0382AA00C51B6B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ParseZero/Bolts.framework; sourceTree = "<group>"; };
-		4AF8279E1C0382AA00C51B6B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ParseZero/Parse.framework; sourceTree = "<group>"; };
 		4AF827A11C0382D400C51B6B /* ClassImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassImporter.swift; sourceTree = "<group>"; };
 		4AF827A31C0382DE00C51B6B /* RelationImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationImporter.swift; sourceTree = "<group>"; };
 		4AF827A51C0385BD00C51B6B /* Importer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
@@ -87,6 +110,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4A26C34D1C049E2400E5F505 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A26C3691C049ED800E5F505 /* libsqlite3.tbd in Frameworks */,
+				4A26C3681C049ED200E5F505 /* SystemConfiguration.framework in Frameworks */,
+				4A26C3671C049ED200E5F505 /* AudioToolbox.framework in Frameworks */,
+				4A26C37B1C04A55E00E5F505 /* Bolts.framework in Frameworks */,
+				4A26C37C1C04A55F00E5F505 /* Parse.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4AF8277D1C0381C400C51B6B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -94,8 +129,6 @@
 				4AF827C61C038C1300C51B6B /* AudioToolbox.framework in Frameworks */,
 				4AF827C21C038BFE00C51B6B /* SystemConfiguration.framework in Frameworks */,
 				4AF827C01C038BF400C51B6B /* libsqlite3.tbd in Frameworks */,
-				4AF827A01C0382AA00C51B6B /* Parse.framework in Frameworks */,
-				4AF8279F1C0382AA00C51B6B /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,20 +137,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AF8278C1C0381C400C51B6B /* ParseZero.framework in Frameworks */,
-				4AF827A81C038AE300C51B6B /* Parse.framework in Frameworks */,
-				4AF827A71C038AE200C51B6B /* Bolts.framework in Frameworks */,
+				4A26C37A1C04A55E00E5F505 /* Parse.framework in Frameworks */,
+				4A26C3791C04A55E00E5F505 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A26C3511C049E2400E5F505 /* ParseZeroHost */ = {
+			isa = PBXGroup;
+			children = (
+				4A26C3521C049E2400E5F505 /* AppDelegate.swift */,
+				4A26C3541C049E2400E5F505 /* ViewController.swift */,
+				4A26C3561C049E2400E5F505 /* Main.storyboard */,
+				4A26C3591C049E2400E5F505 /* Assets.xcassets */,
+				4A26C35B1C049E2400E5F505 /* LaunchScreen.storyboard */,
+				4A26C35E1C049E2400E5F505 /* Info.plist */,
+			);
+			path = ParseZeroHost;
+			sourceTree = "<group>";
+		};
 		4AF827771C0381C400C51B6B = {
 			isa = PBXGroup;
 			children = (
-				4AF827BE1C038BE200C51B6B /* Frameworks */,
+				4A26C3511C049E2400E5F505 /* ParseZeroHost */,
 				4AF827831C0381C400C51B6B /* ParseZero */,
 				4AF8278F1C0381C400C51B6B /* ParseZeroTests */,
+				4AF827BE1C038BE200C51B6B /* Frameworks */,
 				4AF827821C0381C400C51B6B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -127,6 +174,7 @@
 			children = (
 				4AF827811C0381C400C51B6B /* ParseZero.framework */,
 				4AF8278B1C0381C400C51B6B /* ParseZeroTests.xctest */,
+				4A26C3501C049E2400E5F505 /* ParseZeroHost.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,8 +224,8 @@
 				4AF827C51C038C1300C51B6B /* AudioToolbox.framework */,
 				4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */,
 				4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */,
-				4AF8279D1C0382AA00C51B6B /* Bolts.framework */,
-				4AF8279E1C0382AA00C51B6B /* Parse.framework */,
+				4A26C3751C04A55600E5F505 /* Bolts.framework */,
+				4A26C3761C04A55600E5F505 /* Parse.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -196,6 +244,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4A26C34F1C049E2400E5F505 /* ParseZeroHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A26C3611C049E2400E5F505 /* Build configuration list for PBXNativeTarget "ParseZeroHost" */;
+			buildPhases = (
+				4A26C34C1C049E2400E5F505 /* Sources */,
+				4A26C34D1C049E2400E5F505 /* Frameworks */,
+				4A26C34E1C049E2400E5F505 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4A26C3631C049E3C00E5F505 /* PBXTargetDependency */,
+			);
+			name = ParseZeroHost;
+			productName = ParseZeroHost;
+			productReference = 4A26C3501C049E2400E5F505 /* ParseZeroHost.app */;
+			productType = "com.apple.product-type.application";
+		};
 		4AF827801C0381C400C51B6B /* ParseZero */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AF827951C0381C400C51B6B /* Build configuration list for PBXNativeTarget "ParseZero" */;
@@ -243,6 +309,9 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = flovilmart;
 				TargetAttributes = {
+					4A26C34F1C049E2400E5F505 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
 					4AF827801C0381C400C51B6B = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
@@ -257,6 +326,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 4AF827771C0381C400C51B6B;
 			productRefGroup = 4AF827821C0381C400C51B6B /* Products */;
@@ -265,11 +335,23 @@
 			targets = (
 				4AF827801C0381C400C51B6B /* ParseZero */,
 				4AF8278A1C0381C400C51B6B /* ParseZeroTests */,
+				4A26C34F1C049E2400E5F505 /* ParseZeroHost */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4A26C34E1C049E2400E5F505 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A26C35D1C049E2400E5F505 /* LaunchScreen.storyboard in Resources */,
+				4A26C35A1C049E2400E5F505 /* Assets.xcassets in Resources */,
+				4A26C3661C049EA100E5F505 /* AllObjects.json in Resources */,
+				4A26C3581C049E2400E5F505 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4AF8277F1C0381C400C51B6B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -292,6 +374,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4A26C34C1C049E2400E5F505 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A26C3551C049E2400E5F505 /* ViewController.swift in Sources */,
+				4A26C3531C049E2400E5F505 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4AF8277C1C0381C400C51B6B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -317,6 +408,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4A26C3631C049E3C00E5F505 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4AF827801C0381C400C51B6B /* ParseZero */;
+			targetProxy = 4A26C3621C049E3C00E5F505 /* PBXContainerItemProxy */;
+		};
 		4AF8278E1C0381C400C51B6B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4AF827801C0381C400C51B6B /* ParseZero */;
@@ -324,7 +420,58 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		4A26C3561C049E2400E5F505 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A26C3571C049E2400E5F505 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4A26C35B1C049E2400E5F505 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A26C35C1C049E2400E5F505 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		4A26C35F1C049E2400E5F505 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ParseZero",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = ParseZeroHost/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZeroHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4A26C3601C049E2400E5F505 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ParseZero",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = ParseZeroHost/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZeroHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		4AF827931C0381C400C51B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -425,10 +572,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ParseZero/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ParseZero";
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -447,10 +600,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ParseZero/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ParseZero";
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.flovilmart.ParseZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -464,6 +623,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ParseZeroTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -481,6 +641,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ParseZeroTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -493,6 +654,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4A26C3611C049E2400E5F505 /* Build configuration list for PBXNativeTarget "ParseZeroHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A26C35F1C049E2400E5F505 /* Debug */,
+				4A26C3601C049E2400E5F505 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		4AF8277B1C0381C400C51B6B /* Build configuration list for PBXProject "ParseZero" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
