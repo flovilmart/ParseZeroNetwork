@@ -12,12 +12,13 @@ import Bolts
 
 private let kJoinPrefixString = "_Join"
 
-
-typealias ResultArray = [[String : AnyObject]]
+typealias JSONObject = [String : AnyObject]
+typealias ResultArray = [JSONObject]
 typealias ResultTuple = (String, ResultArray)
-
+typealias SplitResultTuples = (classes:[ResultTuple], joins:[ResultTuple])
+typealias SplitNSURLTuples = (classes:[NSURL], joins:[NSURL])
 /// ParseZero preloads data into the Parse local datastore
-@objc
+@objc(ParseZero)
 public class ParseZero:NSObject {
   
   /**
@@ -48,21 +49,20 @@ public class ParseZero:NSObject {
    - Relations follow the same format as the Parse Export options
    - **!! You need to specify the relationships in the given format !!**
    */
-  public static func loadJSONAtPath(path:String) -> BFTask
-  {
+  public static func loadJSONAtPath(path:String) -> BFTask {
     guard let data = NSData(contentsOfURL: NSURL(fileURLWithPath: path))
       else { return BFTask.pzero_error(.CannotLoadFile, userInfo: ["path": path]) }
     
-    let JSONObject:[String : ResultArray]!
+    let JSONObject:[String : ResultArray]
     
     do
     {
       JSONObject = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String : [[String : AnyObject]]]
     } catch { return BFTask.pzero_error(.InvalidJSON, userInfo: ["path": path]) }
     
-    let initial = (classes:[ResultTuple](),joins:[ResultTuple]())
+    let initial = SplitResultTuples([], [])
     
-    let result = JSONObject.reduce(initial) { (var memo, value) -> (classes:[ResultTuple], joins:[ResultTuple]) in
+    let result = JSONObject.reduce(initial) { (var memo, value) -> SplitResultTuples in
       
       // We have a _Join prefix
       if value.0.hasPrefix(kJoinPrefixString) {
@@ -95,19 +95,20 @@ public class ParseZero:NSObject {
    (it differs from Parse's export as the TargetClass should be specified)
    */
   public static func loadDirectoryAtPath(path:String) -> BFTask {
-    let contents:[String]!
-    do
-    {
-      contents = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(path);
-    } catch { return BFTask.pzero_error(.CannotStatDirectory, userInfo: ["path":path]) }
+    
+    let contents:[String]
+    do {
+      contents = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(path)
+    } catch {
+      return BFTask.pzero_error(.CannotStatDirectory, userInfo: ["path":path])
+    }
     
     
     let files = contents.map { (filePath) -> NSURL in
-      return NSURL(fileURLWithPath: path).URLByAppendingPathComponent(filePath)
+      NSURL(fileURLWithPath: path).URLByAppendingPathComponent(filePath)
     }
     
-    return self.loadFiles(files)
-    
+    return loadFiles(files)
   }
   
   /**
@@ -117,11 +118,12 @@ public class ParseZero:NSObject {
    
    - returns: a BFTask that completes when all data in the JSON files is imported
    */
-  public static func loadFiles(files:[NSURL]) -> BFTask
-  {
-
+  public static func loadFiles(files:[NSURL]) -> BFTask {
     
-    let urls = files.reduce((classes:[NSURL](), joins:[NSURL]())) { (var memo, url) -> (classes:[NSURL], joins:[NSURL]) in
+    let initial = SplitNSURLTuples([],[])
+    
+    let urls = files.reduce(initial) { (var memo, url) -> SplitNSURLTuples in
+      
       if url.lastPathComponent!.hasPrefix(kJoinPrefixString)
       {
         memo.joins.append(url)
@@ -132,9 +134,9 @@ public class ParseZero:NSObject {
     }
     
     return ClassImporter.importFiles(urls.classes).continueWithBlock { (classTasks) -> AnyObject! in
-      return RelationImporter.importFiles(urls.joins).continueWithBlock({ (relationTasks) -> AnyObject? in
+      return RelationImporter.importFiles(urls.joins).continueWithBlock { (relationTasks) -> AnyObject? in
         return BFTask(forCompletionOfAllTasksWithResults: [classTasks, relationTasks])
-      })
+      }
     }
   }
   

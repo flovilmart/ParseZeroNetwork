@@ -13,13 +13,12 @@ internal let kPZeroErrorDomain = "com.flovilmart.parsezero"
 
 enum PZeroErrorCode:Int
 {
-  case CannotStatDirectory = 1
-  case InvalidRelationObject = 2
-  case CannotLoadFile = 3
-  case InvalidJSON = 4
+  case CannotStatDirectory
+  case InvalidRelationObject
+  case CannotLoadFile
+  case InvalidJSON
   
-  func localizedDescription() -> String
-  {
+  func localizedDescription() -> String {
     switch self {
     case .CannotStatDirectory:
       return "Cannot read content of directory"
@@ -31,12 +30,16 @@ enum PZeroErrorCode:Int
       return "The JSON in the file is badly formed"
     }
   }
+  
+  func toError(userInfo:[NSObject:AnyObject] = [NSObject:AnyObject]()) -> NSError {
+    return NSError.pzero_error(self, userInfo: userInfo)
+  }
 }
 
 internal extension NSError
 {
-  internal static func pzero_error(code:PZeroErrorCode, var userInfo:[NSObject:AnyObject] = [NSObject:AnyObject]()) -> NSError
-  {
+  internal static func pzero_error(code:PZeroErrorCode, var userInfo:[NSObject:AnyObject] = [NSObject:AnyObject]()) -> NSError {
+    
     if userInfo[NSLocalizedDescriptionKey] == nil
     {
       userInfo[NSLocalizedDescriptionKey] = code.localizedDescription()

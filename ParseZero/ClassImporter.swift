@@ -12,8 +12,7 @@ import Parse
 
 internal struct ClassImporter:Importer {
   
-  internal static func importOnKeyName(className:String, _ objects:[[String : AnyObject]]) -> BFTask
-  {
+  static func importOnKeyName(className:String, _ objects:[JSONObject]) -> BFTask {
     // Create a task that waits for all to complete
     return objects.map { (objectJSON) -> BFTask in
       
@@ -26,18 +25,20 @@ internal struct ClassImporter:Importer {
         .ignoreACLs()
         .findObjectsInBackground()
         .continueWithBlock({ (task) -> AnyObject! in
+          
           if let objects = task.result as? [PFObject] where objects.count == 0 || task.result == nil || task.error != nil {
             return self.pinObject(className, objectJSON: objectJSON)
           }
+          
           return BFTask(result: true)
+          
         })
     
     }.taskForCompletionOfAll()
   }
   
   
-  private static func pinObject(className:String, objectJSON:[String:AnyObject]) -> BFTask
-  {
+  private static func pinObject(className:String, objectJSON:JSONObject) -> BFTask {
    
     let objectId = objectJSON["objectId"] as? String
     print("Pinning \(className) \(objectId)")

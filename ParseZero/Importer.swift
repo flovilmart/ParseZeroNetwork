@@ -13,18 +13,17 @@ let kJSONPathExtension = "json"
 
 internal protocol Importer {
   
-  static func importFiles(files:[NSURL]) -> BFTask
-  static func importFileAtURL(path:NSURL) -> BFTask
-  static func loadFileAtURL(path:NSURL) -> (String, [[String : AnyObject]])?
+  static func importFiles(files: [NSURL]) -> BFTask
+  static func importFileAtURL(path: NSURL) -> BFTask
+  static func loadFileAtURL(path: NSURL) -> (String, [JSONObject])?
+  static func importAll(_: [(String, [JSONObject])]) -> BFTask
+  static func importOnKeyName(_: String, _: [JSONObject]) -> BFTask
   
-  static func importAll(_:[(String,[[String : AnyObject]])]) -> BFTask
-  static func importOnKeyName(_: String, _:[[String : AnyObject]]) -> BFTask
 }
 
-internal extension Importer
-{
-  internal static func importFiles(files:[NSURL]) -> BFTask
-  {
+internal extension Importer {
+  
+  internal static func importFiles(files:[NSURL]) -> BFTask {
     
     return files.map {
       importFileAtURL($0)
@@ -32,15 +31,14 @@ internal extension Importer
     
   }
   
-  internal static func importAll(tuples:[(String,[[String : AnyObject]])]) -> BFTask
+  internal static func importAll(tuples:[(String,[JSONObject])]) -> BFTask
   {
     return tuples.map {
        importOnKeyName($0.0, $0.1)
     }.taskForCompletionOfAll()
   }
   
-  internal static func loadFileAtURL(path:NSURL) -> (String, [[String : AnyObject]])?
-  {
+  internal static func loadFileAtURL(path:NSURL) -> (String, [JSONObject])? {
     
     guard let lastPathComponent = path.lastPathComponent where path.pathExtension == kJSONPathExtension,
       let data = NSData(contentsOfURL: path)
@@ -54,7 +52,7 @@ internal extension Importer
     } catch { return nil }
     
     // Make sure we have the proper structure
-    guard let objects = json["results"] as? [[String : AnyObject]]
+    guard let objects = json["results"] as? [JSONObject]
       else { return nil }
     
     return (className, objects)

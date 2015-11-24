@@ -10,35 +10,34 @@ import Foundation
 import Bolts
 import Parse
 
+typealias PFObjectsMap = [String:[PFObject]]
+
 struct RelationImporter:Importer {
   
-  static func parseClassNameToRelationName(className:String) -> (relationKey:String, ownerClassName:String, targetClassName:String)
-  {
+  static func parseClassNameToRelationName(className:String) -> (relationKey:String, ownerClassName:String, targetClassName:String) {
     let components = className.componentsSeparatedByString(":")
     return (components[1],components[2], components.last!)
   }
   
-  static func importOnKeyName(relationDefinitionString:String, _ objects:[[String : AnyObject]]) -> BFTask
-  {
+  static func importOnKeyName(relationDefinitionString:String, _ objects:[JSONObject]) -> BFTask {
+    
     let relationDefinition = parseClassNameToRelationName(relationDefinitionString)
     let relationKey = relationDefinition.relationKey
     let ownerClassName = relationDefinition.ownerClassName
     let targetClassName = relationDefinition.targetClassName
     
-    return importRelations(forClassName: ownerClassName, onKey: relationKey, targetClassName: targetClassName, objects: objects)
+    return importRelations(forClassName: ownerClassName, onKey: relationKey,
+      targetClassName: targetClassName, objects: objects)
   }
   
-  static func validateObjects(objects:[[String : AnyObject]]) -> BFTask?
-  {
+  static func validateObjects(objects:[[String : AnyObject]]) -> BFTask? {
 
     let errors = objects.reduce([BFTask]()) { (var memo, object) -> [BFTask] in
-      guard
-        let _ = object["owningId"] as? String,
-        let _ = object["relatedId"] as? String
-        
-        else{
+      if let _ = object["owningId"] as? String,
+        let _ = object["relatedId"] as? String {
+          // do nothing
+      } else {
           memo.append(BFTask.pzero_error(.InvalidRelationObject, userInfo: ["object": object]))
-          return memo
       }
       return memo
     }
@@ -50,7 +49,8 @@ struct RelationImporter:Importer {
     return nil
   }
   
-  static func importRelations(forClassName ownerClassName:String,onKey relationKey:String, targetClassName:String, objects:[[String : AnyObject]]) -> BFTask {
+  static func importRelations(forClassName ownerClassName: String, onKey relationKey: String,
+      targetClassName:String, objects:[JSONObject]) -> BFTask {
     
     print("Doing Relation \(ownerClassName).\(relationKey) -> \(targetClassName)")
     
@@ -58,22 +58,23 @@ struct RelationImporter:Importer {
       return error
     }
     
-    return objects.reduce([String:[PFObject]](), combine: { (var memo, object) -> [String:[PFObject]] in
-      guard
-        let owningId = object["owningId"] as? String,
-        let relatedId = object["relatedId"] as? String
+    return objects.reduce(PFObjectsMap()) { (var memo, object) -> PFObjectsMap in
       
-        else{
-          return memo
-      }
+      // we can force unpack here as it's validated
+      let owningId = object["owningId"] as! String
+      let relatedId = object["relatedId"] as! String
       
       if memo[owningId] == nil {
         memo[owningId] = [PFObject]()
       }
-      memo[owningId]!.append(PFObject(withoutDataWithClassName: targetClassName, objectId: relatedId))
+      
+      let parseObject = PFObject(withoutDataWithClassName: targetClassName, objectId: relatedId)
+      
+      memo[owningId]!.append(parseObject)
       
       return memo
-    }).map({ (relations) -> BFTask in
+      
+    }.map { (relations) -> BFTask in
       
       let owningId = relations.0
       
@@ -92,18 +93,10 @@ struct RelationImporter:Importer {
             sourceObject.relationForKey(relationKey).addObject(object)
           }
           
-          return sourceObject.pinInBackground().continueWithBlock({ (task) -> AnyObject! in
-            print("\(task.result) \(task.error) \(task.exception)")
-                        sourceObject.relationForKey("bs").query().fromLocalDatastore().ignoreACLs().findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
-                          print("\(sourceObject.parseClassName) \(sourceObject.objectId) : \(objects?.count)")
-                        })
-            
-            return task
-          })
-          
+          return sourceObject.pinInBackground()
         })
       
-    }).taskForCompletionOfAll()
+    }.taskForCompletionOfAll()
   }
   
 }
