@@ -11,26 +11,24 @@ import Bolts
 import Parse
 
 typealias PFObjectsMap = [String:[PFObject]]
+typealias RelationDefinition = (key:String, ownerClassName:String, targetClassName:String)
+
 
 struct RelationImporter:Importer {
   
-  static func parseClassNameToRelationName(className:String) -> (relationKey:String, ownerClassName:String, targetClassName:String) {
+  static func parseClassNameToRelation(className:String) -> RelationDefinition {
     let components = className.componentsSeparatedByString(":")
     return (components[1],components[2], components.last!)
   }
   
   static func importOnKeyName(relationDefinitionString:String, _ objects:[JSONObject]) -> BFTask {
     
-    let relationDefinition = parseClassNameToRelationName(relationDefinitionString)
-    let relationKey = relationDefinition.relationKey
-    let ownerClassName = relationDefinition.ownerClassName
-    let targetClassName = relationDefinition.targetClassName
+    let relation = parseClassNameToRelation(relationDefinitionString)
     
-    return importRelations(forClassName: ownerClassName, onKey: relationKey,
-      targetClassName: targetClassName, objects: objects)
+    return importRelations(relation, objects: objects)
   }
   
-  static func validateObjects(objects:[[String : AnyObject]]) -> BFTask? {
+  static func validateObjects(objects: [JSONObject]) -> BFTask? {
 
     let errors = objects.reduce([BFTask]()) { (var memo, object) -> [BFTask] in
       if let _ = object["owningId"] as? String,
@@ -49,10 +47,13 @@ struct RelationImporter:Importer {
     return nil
   }
   
-  static func importRelations(forClassName ownerClassName: String, onKey relationKey: String,
-      targetClassName:String, objects:[JSONObject]) -> BFTask {
+  static func importRelations(relationDefinition: RelationDefinition, objects:[JSONObject]) -> BFTask {
     
-    print("Doing Relation \(ownerClassName).\(relationKey) -> \(targetClassName)")
+    let ownerClassName = relationDefinition.ownerClassName
+    let targetClassName = relationDefinition.targetClassName
+    let ownerKey = relationDefinition.key
+    
+    print("Doing Relation \(ownerClassName).\(ownerKey) -> \(targetClassName)")
     
     if let error = self.validateObjects(objects) {
       return error
@@ -90,7 +91,7 @@ struct RelationImporter:Importer {
           
           let relatedObjects = relations.1
           for object in relatedObjects {
-            sourceObject.relationForKey(relationKey).addObject(object)
+            sourceObject.relationForKey(ownerKey).addObject(object)
           }
           
           return sourceObject.pinInBackground()

@@ -17,9 +17,10 @@ typealias ResultArray = [JSONObject]
 typealias ResultTuple = (String, ResultArray)
 typealias SplitResultTuples = (classes:[ResultTuple], joins:[ResultTuple])
 typealias SplitNSURLTuples = (classes:[NSURL], joins:[NSURL])
+
 /// ParseZero preloads data into the Parse local datastore
 @objc(ParseZero)
-public class ParseZero:NSObject {
+public class ParseZero: NSObject {
   
   /**
    Load data from a JSON file at the specified path
@@ -49,7 +50,7 @@ public class ParseZero:NSObject {
    - Relations follow the same format as the Parse Export options
    - **!! You need to specify the relationships in the given format !!**
    */
-  public static func loadJSONAtPath(path:String) -> BFTask {
+  public static func loadJSONAtPath(path: String) -> BFTask {
     guard let data = NSData(contentsOfURL: NSURL(fileURLWithPath: path))
       else { return BFTask.pzero_error(.CannotLoadFile, userInfo: ["path": path]) }
     
@@ -94,7 +95,7 @@ public class ParseZero:NSObject {
    
    (it differs from Parse's export as the TargetClass should be specified)
    */
-  public static func loadDirectoryAtPath(path:String) -> BFTask {
+  public static func loadDirectoryAtPath(path: String) -> BFTask {
     
     let contents:[String]
     do {
@@ -118,7 +119,7 @@ public class ParseZero:NSObject {
    
    - returns: a BFTask that completes when all data in the JSON files is imported
    */
-  public static func loadFiles(files:[NSURL]) -> BFTask {
+  public static func loadFiles(files: [NSURL]) -> BFTask {
     
     let initial = SplitNSURLTuples([],[])
     

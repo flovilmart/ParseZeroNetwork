@@ -11,8 +11,8 @@ import Bolts
 
 internal let kPZeroErrorDomain = "com.flovilmart.parsezero"
 
-enum PZeroErrorCode:Int
-{
+enum PZeroErrorCode: Int {
+  
   case CannotStatDirectory
   case InvalidRelationObject
   case CannotLoadFile
@@ -31,14 +31,14 @@ enum PZeroErrorCode:Int
     }
   }
   
-  func toError(userInfo:[NSObject:AnyObject] = [NSObject:AnyObject]()) -> NSError {
+  func toError(userInfo: [NSObject:AnyObject] = [NSObject:AnyObject]()) -> NSError {
     return NSError.pzero_error(self, userInfo: userInfo)
   }
 }
 
-internal extension NSError
-{
-  internal static func pzero_error(code:PZeroErrorCode, var userInfo:[NSObject:AnyObject] = [NSObject:AnyObject]()) -> NSError {
+internal extension NSError {
+  
+  internal static func pzero_error(code: PZeroErrorCode, var userInfo: [NSObject:AnyObject] = [:]) -> NSError {
     
     if userInfo[NSLocalizedDescriptionKey] == nil
     {

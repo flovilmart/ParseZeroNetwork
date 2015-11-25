@@ -10,9 +10,9 @@ import Foundation
 import Bolts
 import Parse
 
-internal struct ClassImporter:Importer {
+internal struct ClassImporter: Importer {
   
-  static func importOnKeyName(className:String, _ objects:[JSONObject]) -> BFTask {
+  static func importOnKeyName(className: String, _ objects: [JSONObject]) -> BFTask {
     // Create a task that waits for all to complete
     return objects.map { (objectJSON) -> BFTask in
       
@@ -38,7 +38,7 @@ internal struct ClassImporter:Importer {
   }
   
   
-  private static func pinObject(className:String, objectJSON:JSONObject) -> BFTask {
+  private static func pinObject(className: String, objectJSON: JSONObject) -> BFTask {
    
     let objectId = objectJSON["objectId"] as? String
     print("Pinning \(className) \(objectId)")

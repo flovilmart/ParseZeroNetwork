@@ -69,13 +69,15 @@ class ParseZeroTests: XCTestCase {
   }
   
   func testInvalidRelationKeys() {
-    XCTAssertNotNil(RelationImporter.importRelations(forClassName: "AClass", onKey: "a", targetClassName: "OtherClass", objects: [["key":"value", "otherKey": "OtherVlaue"]]).error)
+    let relation = (key:"a", ownerClassName:"AClass", targetClassName:"OtherClass")
+    XCTAssertNotNil(RelationImporter.importRelations(relation, objects: [["key":"value", "otherKey": "OtherVlaue"]]).error)
   }
   
   func testRelationNotFoundObject() {
     let expectation = self.expectationWithDescription("wait")
+    let relation = (key:"a", ownerClassName:"AClass", targetClassName:"OtherClass")
     
-    RelationImporter.importRelations(forClassName: "ClassA", onKey: "a", targetClassName: "ClassA", objects: [["owningId":"value", "relatedId": "OtherVlaue"]]).continueWithBlock { (task) -> AnyObject! in
+    RelationImporter.importRelations(relation, objects: [["owningId":"value", "relatedId": "OtherVlaue"]]).continueWithBlock { (task) -> AnyObject! in
       XCTAssertNotNil(task.result)
       expectation.fulfill()
       return task

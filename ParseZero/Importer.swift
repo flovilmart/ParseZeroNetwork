@@ -23,7 +23,7 @@ internal protocol Importer {
 
 internal extension Importer {
   
-  internal static func importFiles(files:[NSURL]) -> BFTask {
+  internal static func importFiles(files: [NSURL]) -> BFTask {
     
     return files.map {
       importFileAtURL($0)
@@ -31,14 +31,14 @@ internal extension Importer {
     
   }
   
-  internal static func importAll(tuples:[(String,[JSONObject])]) -> BFTask
+  internal static func importAll(tuples: [(String,[JSONObject])]) -> BFTask
   {
     return tuples.map {
        importOnKeyName($0.0, $0.1)
     }.taskForCompletionOfAll()
   }
   
-  internal static func loadFileAtURL(path:NSURL) -> (String, [JSONObject])? {
+  internal static func loadFileAtURL(path: NSURL) -> (String, [JSONObject])? {
     
     guard let lastPathComponent = path.lastPathComponent where path.pathExtension == kJSONPathExtension,
       let data = NSData(contentsOfURL: path)
