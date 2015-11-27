@@ -15,9 +15,9 @@ internal protocol Importer {
   
   static func importFiles(files: [NSURL]) -> BFTask
   static func importFileAtURL(path: NSURL) -> BFTask
-  static func loadFileAtURL(path: NSURL) -> (String, [JSONObject])?
-  static func importAll(_: [(String, [JSONObject])]) -> BFTask
-  static func importOnKeyName(_: String, _: [JSONObject]) -> BFTask
+  static func loadFileAtURL(path: NSURL) -> ResultTuple?
+  static func importAll(tuples: [ResultTuple]) -> BFTask
+  static func importOnKeyName(keyName: String, _: ResultArray) -> BFTask
   
 }
 
@@ -31,14 +31,14 @@ internal extension Importer {
     
   }
   
-  internal static func importAll(tuples: [(String,[JSONObject])]) -> BFTask
+  internal static func importAll(tuples: [ResultTuple]) -> BFTask
   {
     return tuples.map {
        importOnKeyName($0.0, $0.1)
     }.taskForCompletionOfAll()
   }
   
-  internal static func loadFileAtURL(path: NSURL) -> (String, [JSONObject])? {
+  internal static func loadFileAtURL(path: NSURL) -> ResultTuple? {
     
     guard let lastPathComponent = path.lastPathComponent where path.pathExtension == kJSONPathExtension,
       let data = NSData(contentsOfURL: path)
@@ -46,13 +46,13 @@ internal extension Importer {
 
     let className = (lastPathComponent as NSString).stringByDeletingPathExtension
     // Load the json
-    let json:AnyObject!
+    let json: AnyObject!
     do {
       json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
     } catch { return nil }
     
     // Make sure we have the proper structure
-    guard let objects = json["results"] as? [JSONObject]
+    guard let objects = json["results"] as? ResultArray
       else { return nil }
     
     return (className, objects)
@@ -60,8 +60,8 @@ internal extension Importer {
   }
   
   static func importFileAtURL(path: NSURL) -> BFTask {
-    let relationString:String!
-    let objects:[[String : AnyObject]]!
+    let relationString: String!
+    let objects: [[String: AnyObject]]!
     
     guard let loadedFile = self.loadFileAtURL(path)
       else { return BFTask(result: true) }

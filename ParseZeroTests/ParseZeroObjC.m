@@ -68,6 +68,7 @@
     XCTAssert(task.exception == nil);
     [self checkIntegrity];
      [expectation fulfill];
+    return task;
   }];
   
   [self waitForExpectationsWithTimeout:3000 handler:nil];

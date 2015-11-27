@@ -21,14 +21,14 @@ struct RelationImporter:Importer {
     return (components[1],components[2], components.last!)
   }
   
-  static func importOnKeyName(relationDefinitionString:String, _ objects:[JSONObject]) -> BFTask {
+  static func importOnKeyName(relationDefinitionString:String, _ objects:ResultArray) -> BFTask {
     
     let relation = parseClassNameToRelation(relationDefinitionString)
     
     return importRelations(relation, objects: objects)
   }
   
-  static func validateObjects(objects: [JSONObject]) -> BFTask? {
+  static func validateObjects(objects: ResultArray) -> BFTask? {
 
     let errors = objects.reduce([BFTask]()) { (var memo, object) -> [BFTask] in
       if let _ = object["owningId"] as? String,
@@ -47,14 +47,12 @@ struct RelationImporter:Importer {
     return nil
   }
   
-  static func importRelations(relationDefinition: RelationDefinition, objects:[JSONObject]) -> BFTask {
+  static func importRelations(relationDefinition: RelationDefinition, objects:ResultArray) -> BFTask {
     
     let ownerClassName = relationDefinition.ownerClassName
     let targetClassName = relationDefinition.targetClassName
     let ownerKey = relationDefinition.key
-    
-    print("Doing Relation \(ownerClassName).\(ownerKey) -> \(targetClassName)")
-    
+        
     if let error = self.validateObjects(objects) {
       return error
     }
@@ -94,7 +92,15 @@ struct RelationImporter:Importer {
             sourceObject.relationForKey(ownerKey).addObject(object)
           }
           
-          return sourceObject.pinInBackground()
+          return sourceObject.pinInBackground().continueWithBlock({ (task) -> AnyObject! in
+            if task.completed {
+              let ids = relatedObjects.map({ (object) -> String in
+                return object.objectId!
+              })
+              return BFTask(result: "Saved Relations from:\(ownerClassName) \(sourceObject.objectId)\nto \(targetClassName) - \(ids)")
+            }
+            return task
+          })
         })
       
     }.taskForCompletionOfAll()

@@ -12,11 +12,12 @@ import Bolts
 
 private let kJoinPrefixString = "_Join"
 
-typealias JSONObject = [String : AnyObject]
+typealias JSONObject = [String: AnyObject]
 typealias ResultArray = [JSONObject]
 typealias ResultTuple = (String, ResultArray)
-typealias SplitResultTuples = (classes:[ResultTuple], joins:[ResultTuple])
-typealias SplitNSURLTuples = (classes:[NSURL], joins:[NSURL])
+typealias KeyedResultArray = [String: ResultArray]
+typealias SplitResultTuples = (classes: [ResultTuple], joins: [ResultTuple])
+typealias SplitNSURLTuples = (classes: [NSURL], joins: [NSURL])
 
 /// ParseZero preloads data into the Parse local datastore
 @objc(ParseZero)
@@ -54,11 +55,11 @@ public class ParseZero: NSObject {
     guard let data = NSData(contentsOfURL: NSURL(fileURLWithPath: path))
       else { return BFTask.pzero_error(.CannotLoadFile, userInfo: ["path": path]) }
     
-    let JSONObject:[String : ResultArray]
+    let JSONObject: KeyedResultArray
     
     do
     {
-      JSONObject = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String : [[String : AnyObject]]]
+      JSONObject = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! KeyedResultArray
     } catch { return BFTask.pzero_error(.InvalidJSON, userInfo: ["path": path]) }
     
     let initial = SplitResultTuples([], [])
@@ -74,12 +75,9 @@ public class ParseZero: NSObject {
       return memo
     }
     
-    return ClassImporter.importAll(result.classes).continueWithBlock{ (classTasks) -> AnyObject! in
-      return RelationImporter.importAll(result.joins).continueWithBlock({ (relationTasks) -> AnyObject? in
-        return BFTask(forCompletionOfAllTasksWithResults: [classTasks, relationTasks])
-      })
-    }
-
+    return ClassImporter.importAll(result.classes).then({ (task) -> AnyObject! in
+      return RelationImporter.importAll(result.joins).mergeResultsWith(task)
+    })
   }
   
   /**
@@ -133,12 +131,9 @@ public class ParseZero: NSObject {
       }
       return memo
     }
-    
-    return ClassImporter.importFiles(urls.classes).continueWithBlock { (classTasks) -> AnyObject! in
-      return RelationImporter.importFiles(urls.joins).continueWithBlock { (relationTasks) -> AnyObject? in
-        return BFTask(forCompletionOfAllTasksWithResults: [classTasks, relationTasks])
-      }
-    }
+    return ClassImporter.importFiles(urls.classes).then({ (task) -> AnyObject! in
+      return RelationImporter.importFiles(urls.joins).mergeResultsWith(task)
+    })
   }
   
 }

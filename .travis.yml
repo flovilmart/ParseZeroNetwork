@@ -1,0 +1,9 @@
+language: objective-c
+osx_image: xcode7.1
+before_install:
+- brew install carthage
+before_script:
+- carthage update
+script:
+- "xcodebuild -scheme ParseZero -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.1' ONLY_ACTIVE_ARCH=YES test | xcpretty"
+

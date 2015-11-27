@@ -68,6 +68,16 @@ class ParseZeroTests: XCTestCase {
     XCTAssertNil(ClassImporter.loadFileAtURL(jsonURL))
   }
   
+  func testMissingObjectIdKey() {
+    let expecation = self.expectationWithDescription("wait")
+    ClassImporter.importOnKeyName("AClass", [["some": "thing"]]).continueWithBlock { (task) -> AnyObject? in
+      XCTAssertNotNil(task.error)
+      expecation.fulfill()
+      return task
+    }
+    self.waitForExpectationsWithTimeout(10, handler: nil)
+  }
+  
   func testInvalidRelationKeys() {
     let relation = (key:"a", ownerClassName:"AClass", targetClassName:"OtherClass")
     XCTAssertNotNil(RelationImporter.importRelations(relation, objects: [["key":"value", "otherKey": "OtherVlaue"]]).error)
@@ -84,6 +94,25 @@ class ParseZeroTests: XCTestCase {
     }
     waitForExpectationsWithTimeout(10.0, handler: nil)
     
+  }
+  
+  func testBFTasks() {
+    BFTask(result: nil).continueWithBlock({ (task) -> AnyObject? in
+      return BFTask(result: ["key":"value"]).mergeResultsWith(task)
+    }).continueWithBlock { (task) -> AnyObject? in
+      return BFTask(result: ["Some", "Strings"]).mergeResultsWith(task)
+    }.continueWithBlock { (task) -> AnyObject? in
+      return BFTask(result: "hello").mergeResultsWith(task)
+    }.continueWithBlock { (task) -> AnyObject? in
+        return BFTask(result: nil).mergeResultsWith(task)
+    }.continueWithBlock { (task) -> AnyObject? in
+      guard let result = task.result as? [AnyObject] else {
+        XCTFail()
+        return task
+      }
+      XCTAssertEqual(result.count, 4)
+      return task
+    }
   }
 
 }

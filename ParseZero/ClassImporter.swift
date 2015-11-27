@@ -12,15 +12,15 @@ import Parse
 
 internal struct ClassImporter: Importer {
   
-  static func importOnKeyName(className: String, _ objects: [JSONObject]) -> BFTask {
+  static func importOnKeyName(className: String, _ objects: ResultArray) -> BFTask {
     // Create a task that waits for all to complete
     return objects.map { (objectJSON) -> BFTask in
       
-      let objectId = objectJSON["objectId"] as? String
+      guard let objectId = objectJSON["objectId"] as? String else {
+        return BFTask.pzero_error(.MissingObjectIdKey)
+      }
       
-      print("Doing \(className) \(objectId)")
-      
-      return PFQuery(className: className, predicate: NSPredicate(format: "objectId == %@", objectId!))
+      return PFQuery(className: className, predicate: NSPredicate(format: "objectId == %@", objectId))
         .fromLocalDatastore()
         .ignoreACLs()
         .findObjectsInBackground()
@@ -30,7 +30,7 @@ internal struct ClassImporter: Importer {
             return self.pinObject(className, objectJSON: objectJSON)
           }
           
-          return BFTask(result: true)
+          return BFTask(result: "Not updating \(className) \(objectId)")
           
         })
     
@@ -40,13 +40,19 @@ internal struct ClassImporter: Importer {
   
   private static func pinObject(className: String, objectJSON: JSONObject) -> BFTask {
    
-    let objectId = objectJSON["objectId"] as? String
-    print("Pinning \(className) \(objectId)")
+    guard let objectId = objectJSON["objectId"] as? String else {
+      return BFTask.pzero_error(.MissingObjectIdKey)
+    }
     
     let parseObject = PFObject(className: className, dictionary: objectJSON )
     parseObject.objectId = objectId
     
-    return parseObject.pinInBackground()
+    return parseObject.pinInBackground().continueWithBlock({ (task) -> AnyObject! in
+      if task.completed {
+        return BFTask(result: "Saved \(className) \(objectId)")
+      }
+      return task
+    })
   }
 
 }

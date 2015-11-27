@@ -17,6 +17,7 @@ enum PZeroErrorCode: Int {
   case InvalidRelationObject
   case CannotLoadFile
   case InvalidJSON
+  case MissingObjectIdKey
   
   func localizedDescription() -> String {
     switch self {
@@ -28,6 +29,8 @@ enum PZeroErrorCode: Int {
       return "Cannot Load File, it may not exist"
     case .InvalidJSON:
       return "The JSON in the file is badly formed"
+    case .MissingObjectIdKey:
+      return "The object doesn't have an object id"
     }
   }
   

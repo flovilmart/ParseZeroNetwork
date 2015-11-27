@@ -16,8 +16,12 @@
 		4A26C3671C049ED200E5F505 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C51C038C1300C51B6B /* AudioToolbox.framework */; };
 		4A26C3681C049ED200E5F505 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */; };
 		4A26C3691C049ED800E5F505 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */; };
-		4A26C3791C04A55E00E5F505 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3751C04A55600E5F505 /* Bolts.framework */; };
-		4A26C37A1C04A55E00E5F505 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A26C3761C04A55600E5F505 /* Parse.framework */; };
+		4A8E7F871C080C0300E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; };
+		4A8E7F881C080C0400E8AF28 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F861C080C0300E8AF28 /* Parse.framework */; };
+		4A8E7F891C080E4400E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; };
+		4A8E7F8A1C080E4500E8AF28 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F861C080C0300E8AF28 /* Parse.framework */; };
+		4A8E7F8B1C080E4500E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; };
+		4A8E7F8C1C080E4500E8AF28 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F861C080C0300E8AF28 /* Parse.framework */; };
 		4ABC1EBC1C03F3B800FE1F59 /* Malformed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */; };
 		4AD907171C03C2FF004C2CFC /* ParseZeroObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */; };
 		4AD907191C03C64F004C2CFC /* BFTask+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */; };
@@ -81,8 +85,8 @@
 		4A26C3591C049E2400E5F505 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A26C35C1C049E2400E5F505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A26C35E1C049E2400E5F505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A26C3751C04A55600E5F505 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		4A26C3761C04A55600E5F505 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		4A8E7F851C080C0300E8AF28 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Carthage/Build/iOS/Bolts.framework; sourceTree = "<group>"; };
+		4A8E7F861C080C0300E8AF28 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Carthage/Build/iOS/Parse.framework; sourceTree = "<group>"; };
 		4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Malformed.json; path = ParseZeroTests/Malformed.json; sourceTree = SOURCE_ROOT; };
 		4AD907151C03C2FE004C2CFC /* ParseZeroTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ParseZeroTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseZeroObjC.m; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				4A26C3691C049ED800E5F505 /* libsqlite3.tbd in Frameworks */,
 				4A26C3681C049ED200E5F505 /* SystemConfiguration.framework in Frameworks */,
 				4A26C3671C049ED200E5F505 /* AudioToolbox.framework in Frameworks */,
+				4A8E7F8B1C080E4500E8AF28 /* Bolts.framework in Frameworks */,
+				4A8E7F8C1C080E4500E8AF28 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +131,8 @@
 				4AF827C61C038C1300C51B6B /* AudioToolbox.framework in Frameworks */,
 				4AF827C21C038BFE00C51B6B /* SystemConfiguration.framework in Frameworks */,
 				4AF827C01C038BF400C51B6B /* libsqlite3.tbd in Frameworks */,
+				4A8E7F871C080C0300E8AF28 /* Bolts.framework in Frameworks */,
+				4A8E7F881C080C0400E8AF28 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,8 +141,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AF8278C1C0381C400C51B6B /* ParseZero.framework in Frameworks */,
-				4A26C37A1C04A55E00E5F505 /* Parse.framework in Frameworks */,
-				4A26C3791C04A55E00E5F505 /* Bolts.framework in Frameworks */,
+				4A8E7F8A1C080E4500E8AF28 /* Parse.framework in Frameworks */,
+				4A8E7F891C080E4400E8AF28 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,11 +225,11 @@
 		4AF827BE1C038BE200C51B6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A8E7F851C080C0300E8AF28 /* Bolts.framework */,
+				4A8E7F861C080C0300E8AF28 /* Parse.framework */,
 				4AF827C51C038C1300C51B6B /* AudioToolbox.framework */,
 				4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */,
 				4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */,
-				4A26C3751C04A55600E5F505 /* Bolts.framework */,
-				4A26C3761C04A55600E5F505 /* Parse.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -378,8 +386,8 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Bolts.framework",
-				"$(SRCROOT)/Parse.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Bolts.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Parse.framework",
 			);
 			outputPaths = (
 			);
@@ -394,8 +402,8 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Bolts.framework",
-				"$(SRCROOT)/Parse.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Bolts.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Parse.framework",
 			);
 			outputPaths = (
 			);
@@ -480,6 +488,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ParseZeroHost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -497,6 +506,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ParseZeroHost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -608,6 +618,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ParseZero/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -635,6 +646,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ParseZero/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -656,6 +668,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ParseZeroTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -674,6 +687,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ParseZero",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ParseZeroTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -693,6 +707,7 @@
 				4A26C3601C049E2400E5F505 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4AF8277B1C0381C400C51B6B /* Build configuration list for PBXProject "ParseZero" */ = {
 			isa = XCConfigurationList;
