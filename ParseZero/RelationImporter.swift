@@ -92,14 +92,11 @@ struct RelationImporter:Importer {
             sourceObject.relationForKey(ownerKey).addObject(object)
           }
           
-          return sourceObject.pinInBackground().continueWithBlock({ (task) -> AnyObject! in
-            if task.completed {
-              let ids = relatedObjects.map({ (object) -> String in
-                return object.objectId!
-              })
-              return BFTask(result: "Saved Relations from:\(ownerClassName) \(sourceObject.objectId)\nto \(targetClassName) - \(ids)")
-            }
-            return task
+          return sourceObject.pinInBackground().continueWithSuccessBlock({ (task) -> AnyObject! in
+            let ids = relatedObjects.map({ (object) -> String in
+              return object.objectId!
+            })
+            return BFTask(result: "Saved Relations from:\(ownerClassName) \(sourceObject.objectId)\nto \(targetClassName) - \(ids)")
           })
         })
       

@@ -15,13 +15,13 @@ internal extension BFTask {
     return BFTask(error: code.toError(userInfo))
   }
   
-  internal func then(block:BFContinuationBlock) -> BFTask {
+  internal func then(block: BFContinuationBlock) -> BFTask {
     return continueWithBlock(block)
   }
   
-  internal func mergeResultsWith(task:BFTask) -> BFTask
+  internal func mergeResultsWith(task: BFTask) -> BFTask
   {
-    var results:[AnyObject]
+    var results: [AnyObject]
     if let result = task.result {
       if let result = result as? [AnyObject] {
         results = result
