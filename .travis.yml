@@ -5,5 +5,7 @@ before_install:
 before_script:
 - carthage update
 script:
-- "xcodebuild -scheme ParseZero -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.1' ONLY_ACTIVE_ARCH=YES test | xcpretty"
-
+- "xctool -scheme ParseZero -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.1' GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES test"
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - codecov
