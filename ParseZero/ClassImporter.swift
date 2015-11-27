@@ -27,7 +27,7 @@ internal struct ClassImporter: Importer {
         .continueWithBlock({ (task) -> AnyObject! in
           
           if let objects = task.result as? [PFObject] where objects.count == 0 || task.result == nil || task.error != nil {
-            return self.pinObject(className, objectJSON: objectJSON)
+            return self.pinObject(className, objectId: objectId, objectJSON: objectJSON)
           }
           
           return BFTask(result: "Not updating \(className) \(objectId)")
@@ -38,20 +38,13 @@ internal struct ClassImporter: Importer {
   }
   
   
-  private static func pinObject(className: String, objectJSON: JSONObject) -> BFTask {
-   
-    guard let objectId = objectJSON["objectId"] as? String else {
-      return BFTask.pzero_error(.MissingObjectIdKey)
-    }
+  private static func pinObject(className: String, objectId: String, objectJSON: JSONObject) -> BFTask {
     
-    let parseObject = PFObject(className: className, dictionary: objectJSON )
+    let parseObject = PFObject(className: className, dictionary: objectJSON)
     parseObject.objectId = objectId
     
-    return parseObject.pinInBackground().continueWithBlock({ (task) -> AnyObject! in
-      if task.completed {
-        return BFTask(result: "Saved \(className) \(objectId)")
-      }
-      return task
+    return parseObject.pinInBackground().continueWithSuccessBlock({ (task) -> AnyObject! in
+      return BFTask(result: "Saved \(className) \(objectId)")
     })
   }
 

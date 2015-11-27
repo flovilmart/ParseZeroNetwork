@@ -97,14 +97,25 @@ class ParseZeroTests: XCTestCase {
   }
   
   func testBFTasks() {
-    BFTask(result: nil).continueWithBlock({ (task) -> AnyObject? in
+    BFTask(result: nil).continueWithBlock{ (task) -> AnyObject? in
       return BFTask(result: ["key":"value"]).mergeResultsWith(task)
-    }).continueWithBlock { (task) -> AnyObject? in
+    }.continueWithBlock { (task) -> AnyObject? in
       return BFTask(result: ["Some", "Strings"]).mergeResultsWith(task)
     }.continueWithBlock { (task) -> AnyObject? in
       return BFTask(result: "hello").mergeResultsWith(task)
     }.continueWithBlock { (task) -> AnyObject? in
-        return BFTask(result: nil).mergeResultsWith(task)
+      return BFTask(result: nil).mergeResultsWith(task)
+    }.continueWithBlock { (task) -> AnyObject? in
+      guard let result = task.result as? [AnyObject] else {
+        XCTFail()
+        return task
+      }
+      XCTAssertEqual(result.count, 4)
+      return BFTask(result: "hello")
+    }.continueWithBlock{ (task) -> AnyObject? in
+        return BFTask(result: ["key":"value"]).mergeResultsWith(task)
+    }.continueWithBlock { (task) -> AnyObject? in
+        return BFTask(result: ["Some", "Strings"]).mergeResultsWith(task)
     }.continueWithBlock { (task) -> AnyObject? in
       guard let result = task.result as? [AnyObject] else {
         XCTFail()
