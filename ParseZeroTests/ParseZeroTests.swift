@@ -106,10 +106,7 @@ class ParseZeroTests: XCTestCase {
     }.continueWithBlock { (task) -> AnyObject? in
       return BFTask(result: nil).mergeResultsWith(task)
     }.continueWithBlock { (task) -> AnyObject? in
-      guard let result = task.result as? [AnyObject] else {
-        XCTFail()
-        return task
-      }
+      let result = task.result as! [AnyObject]
       XCTAssertEqual(result.count, 4)
       return BFTask(result: "hello")
     }.continueWithBlock{ (task) -> AnyObject? in
@@ -117,10 +114,7 @@ class ParseZeroTests: XCTestCase {
     }.continueWithBlock { (task) -> AnyObject? in
         return BFTask(result: ["Some", "Strings"]).mergeResultsWith(task)
     }.continueWithBlock { (task) -> AnyObject? in
-      guard let result = task.result as? [AnyObject] else {
-        XCTFail()
-        return task
-      }
+      let result = task.result as! [AnyObject]
       XCTAssertEqual(result.count, 4)
       return task
     }
