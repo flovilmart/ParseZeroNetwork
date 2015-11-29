@@ -11,15 +11,15 @@ import Bolts
 
 internal extension BFTask {
   
-  internal static func pzero_error(code: PZeroErrorCode, userInfo: [NSObject: AnyObject] = [:]) -> BFTask {
+  static func pzero_error(code: PZeroErrorCode, userInfo: [NSObject: AnyObject] = [:]) -> BFTask {
     return BFTask(error: code.toError(userInfo))
   }
   
-  internal func then(block: BFContinuationBlock) -> BFTask {
+  func then(block: BFContinuationBlock) -> BFTask {
     return continueWithBlock(block)
   }
   
-  internal func mergeResultsWith(task: BFTask) -> BFTask
+  func mergeResultsWith(task: BFTask) -> BFTask
   {
     var results: [AnyObject]
     if let result = task.result {
@@ -32,10 +32,10 @@ internal extension BFTask {
       results = [AnyObject]()
     }
     
-    return self.continueWithBlock({ (task) -> AnyObject? in
+    return self.continueWithBlock({ (otherTask) -> AnyObject! in
       
-      if let result = task.result where task.completed {
-        if let result = task.result as? [AnyObject] {
+      if let result:AnyObject = otherTask.result where otherTask.completed {
+        if let result = otherTask.result as? [AnyObject] {
           results.appendContentsOf(result)
         } else {
           results.append(result)
@@ -49,7 +49,7 @@ internal extension BFTask {
 
 internal extension Array where Element: BFTask {
   
-  internal func taskForCompletionOfAll() -> BFTask {
+  func taskForCompletionOfAll() -> BFTask {
     return BFTask(forCompletionOfAllTasksWithResults: self)
   }
   
