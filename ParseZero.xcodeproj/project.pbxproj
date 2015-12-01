@@ -16,12 +16,13 @@
 		4A26C3671C049ED200E5F505 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C51C038C1300C51B6B /* AudioToolbox.framework */; };
 		4A26C3681C049ED200E5F505 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */; };
 		4A26C3691C049ED800E5F505 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */; };
+		4A89679A1C0DFC3000D52EBE /* PFObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8967991C0DFC3000D52EBE /* PFObject+Additions.swift */; };
 		4A8E7F871C080C0300E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; };
 		4A8E7F881C080C0400E8AF28 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F861C080C0300E8AF28 /* Parse.framework */; };
 		4A8E7F891C080E4400E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; };
 		4A8E7F8A1C080E4500E8AF28 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F861C080C0300E8AF28 /* Parse.framework */; };
-		4A8E7F8B1C080E4500E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; };
-		4A8E7F8C1C080E4500E8AF28 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F861C080C0300E8AF28 /* Parse.framework */; };
+		4A8E7F8B1C080E4500E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		4A8E7F8C1C080E4500E8AF28 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F861C080C0300E8AF28 /* Parse.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4ABC1EBC1C03F3B800FE1F59 /* Malformed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */; };
 		4AD907171C03C2FF004C2CFC /* ParseZeroObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907161C03C2FF004C2CFC /* ParseZeroObjC.m */; };
 		4AD907191C03C64F004C2CFC /* BFTask+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */; };
@@ -85,6 +86,7 @@
 		4A26C3591C049E2400E5F505 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A26C35C1C049E2400E5F505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A26C35E1C049E2400E5F505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A8967991C0DFC3000D52EBE /* PFObject+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PFObject+Additions.swift"; sourceTree = "<group>"; };
 		4A8E7F851C080C0300E8AF28 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Carthage/Build/iOS/Bolts.framework; sourceTree = "<group>"; };
 		4A8E7F861C080C0300E8AF28 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Carthage/Build/iOS/Parse.framework; sourceTree = "<group>"; };
 		4ABC1EBB1C03F3B800FE1F59 /* Malformed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Malformed.json; path = ParseZeroTests/Malformed.json; sourceTree = SOURCE_ROOT; };
@@ -190,6 +192,7 @@
 				4AF8279B1C03827100C51B6B /* ParseZero.swift */,
 				4AF827C71C038CB700C51B6B /* ParseZeroError.swift */,
 				4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */,
+				4A8967991C0DFC3000D52EBE /* PFObject+Additions.swift */,
 				4AF827A51C0385BD00C51B6B /* Importer.swift */,
 				4AF827A11C0382D400C51B6B /* ClassImporter.swift */,
 				4AF827A31C0382DE00C51B6B /* RelationImporter.swift */,
@@ -430,6 +433,7 @@
 				4AF827A21C0382D400C51B6B /* ClassImporter.swift in Sources */,
 				4AF827A41C0382DE00C51B6B /* RelationImporter.swift in Sources */,
 				4AD907191C03C64F004C2CFC /* BFTask+Additions.swift in Sources */,
+				4A89679A1C0DFC3000D52EBE /* PFObject+Additions.swift in Sources */,
 				4AF827C81C038CB700C51B6B /* ParseZeroError.swift in Sources */,
 				4AF8279C1C03827100C51B6B /* ParseZero.swift in Sources */,
 				4AF827A61C0385BD00C51B6B /* Importer.swift in Sources */,

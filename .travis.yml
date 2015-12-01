@@ -6,22 +6,13 @@ before_install:
 - brew upgrade xctool
 before_script:
 - carthage update
-script:
-- xctool -scheme ParseZero -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.1' -sdk iphonesimulator test
+script: xctool -scheme ParseZero -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.1' -sdk iphonesimulator test
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 env:
   global:
     secure: u5G34i3G+jOMRm4YSzT9xxy+st3WvercL4TABprxme+71PVu1qHagZEDulrep/TY3lBNWMsvTfVrEjzNnEpxnZhbMYFMT+aQvND6zI4S4Rk9aJVElSWMnK3yVHXlngeyGeyotJlP7YtWf0GdxJDfzaen5bx2Bl8oGaOCBgJ2y9KCvUXGprrIthMwNeBmwgL93Oh/jh3W6AkRk/0QJAFBhqfnms8aRQ/QQyWIviNwkf/1e66gFiFbYF17N4nF6/r6SfRMbH/KH30nlD1KMqfxZSFEWcnKzGjok9wdJvM9hju/ENmoEIOfsXlL5NK62r42rT1sUaCq3E/PzFRfR0GZMveJpF6O9OwIZQd9Qyd1WM669j6mxqGK9tvKumxl8kOotEs26QLiehUTyd0B9yiFrE0E8SzxRm43qUeGhDdDkSpuAS6WMLa0ow1Kb1IA0MFynP4GvZVpBur7zK/KJ+k92a0qr92H3Jk5dnbz/sKpCilHB31hCrGLv+seBPKBtp4aoMoMGB5Dq+khrNokmncWgp0UJZ1hq0zeSOvkk2+irc/vff8qbb57WrTMyT+9q2hpdh4uUkDhrZnF7y50Q8vwgUCETCjrVPz9Jix7jjmUeZ+WyrUhWN0Qz+iBTm25uO1Ri4pY7F4KK7vW31rRxvKR2LgSM5TZdy5es8Smuaflku4=
-# before_deploy:
-# - echo "CODE_SIGNING_REQUIRED=NO" > Framework.xcconfig
-# - export XCODE_XCCONFIG_FILE=Framework.xcconfig; carthage build --no-skip-current
-# - carthage archive ParseZero
-# deploy:
-#   provider: releases
-#   api_key:
-#     secure: gVXjBkTzb1cl/4gpNEKc44mtP3m2d0SuWgFyFg5xdTCan2U9TxNM8AJpLS9YP44fD3rHaqR0gMClP845suOJQN6ObEDcD4Gli3F4v5MTxjA9OWPQvQkrEFaDLCLaC12qfhPcuQcwTuOUQRGMpzW6hzqZpaY3v+ljEqh/iWLPbpYNMyMgm7tw7NbMhjHhacTIUPuGbtVS20U3YiIBBbaFMTEDR9eOhtGOSZhPjWPgebDhImZjgKj2fGZioP1HJ4IQT1HbEX8cmRseHG/H6SkZu8rfsRt/lF+gwkUVl4aDldm4pupn05VpezhgwY4WwmiQQ/+N3HeZpY2SNuc3MnnPlUb/IqWMA1HPp4cK3lEhCkYbeVPuu1avvWab+zYTGM2LKTDIRW750yfnJrVFUHPGFYh9ZBsuB7DILgJ9PVe30zl+r9VaAkImPEUBpfCjlq+pZYE/7gSn4CX8mLHLh9Cb5hp3zuLkDw6HCLqzzGpWACsjCLfp2VOQqGmfnoDCXxL3pnmxSCnUWcNulZr1oDVZv1xt4lUJYeIBGatowZIWDF36IDIO2moaIACdziSdT113RF49hW2Z/XUMvqMZoPiMjSrkiqMRwcqmvy6ZzfiMmnC0iArBRMbeyhf5qjgxbg9YQsIDpZOnLWxtza2238MfVipC5hOaoj9gnMWGP3HOBqQ=
-#   file: ParseZero.framework.zip
-#   on:
-#     tags: true
-#     repo: flovilmart/ParseZero
+before_deploy:
+- echo "CODE_SIGNING_REQUIRED=NO\nCODE_SIGN_IDENTITY=" > Framework.xcconfig
+- export XCODE_XCCONFIG_FILE=Framework.xcconfig; carthage build --no-skip-current
+- carthage archive ParseZero

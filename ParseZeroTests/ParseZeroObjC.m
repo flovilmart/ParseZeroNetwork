@@ -84,7 +84,9 @@
   NSInteger bCount = [[[PFQuery queryWithClassName:@"ClassB"] fromPin] countObjects];
   XCTAssertEqual(bCount, 3);
   
-
+  NSArray *objs = [[[PFQuery queryWithClassName:@"ClassB"] fromPin] findObjects];
+  
+  XCTAssertEqual([objs count], 3);
   // Test if the relation is properly set
   NSArray *objects = [[[[[[[PFObject objectWithoutDataWithClassName:@"ClassA" objectId:@"2"] fetchFromLocalDatastore] relationForKey:@"bs"] query] fromPin] ignoreACLs] findObjects];
   
