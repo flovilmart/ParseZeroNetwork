@@ -17,8 +17,6 @@
 		4A26C3681C049ED200E5F505 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */; };
 		4A26C3691C049ED800E5F505 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */; };
 		4A89679A1C0DFC3000D52EBE /* PFObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8967991C0DFC3000D52EBE /* PFObject+Additions.swift */; };
-		4A8E7F871C080C0300E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; };
-		4A8E7F881C080C0400E8AF28 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F861C080C0300E8AF28 /* Parse.framework */; };
 		4A8E7F891C080E4400E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; };
 		4A8E7F8A1C080E4500E8AF28 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F861C080C0300E8AF28 /* Parse.framework */; };
 		4A8E7F8B1C080E4500E8AF28 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E7F851C080C0300E8AF28 /* Bolts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -133,8 +131,6 @@
 				4AF827C61C038C1300C51B6B /* AudioToolbox.framework in Frameworks */,
 				4AF827C21C038BFE00C51B6B /* SystemConfiguration.framework in Frameworks */,
 				4AF827C01C038BF400C51B6B /* libsqlite3.tbd in Frameworks */,
-				4A8E7F871C080C0300E8AF28 /* Bolts.framework in Frameworks */,
-				4A8E7F881C080C0400E8AF28 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,8 +616,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ParseZero",
-					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -649,8 +643,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ParseZero",
-					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;

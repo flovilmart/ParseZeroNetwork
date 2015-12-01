@@ -6,33 +6,41 @@
 //  Copyright © 2015 flovilmart. All rights reserved.
 //
 
-import Foundation
 import Parse
 
-extension PFObject {
-  static func mockedServerObject(className: String, objectId:String,var data:JSONObject) -> PFObject {
-    let parseObject = PFObject(className: className, dictionary: data)
-    parseObject.objectId = objectId
-    if let ACLDict = data["ACL"] as? JSONObject {
-      let ACL = PFACL()
-      for (k,v) in ACLDict {
-        let setReadAccess = v["read"] as? Bool == true
-        let setWriteAccess = v["write"] as? Bool == true
-  
-        if k == "*" {
-          ACL.publicReadAccess = setReadAccess
-          ACL.publicWriteAccess = setWriteAccess
-        } else if let _ = k.rangeOfString("role:") {
-          let roleName = k.stringByReplacingOccurrencesOfString("role:", withString: "")
-          ACL.setReadAccess(setReadAccess, forRoleWithName: roleName)
-          ACL.setWriteAccess(setWriteAccess, forRoleWithName: roleName)
-        } else {
-          ACL.setReadAccess(setReadAccess, forUserId: k)
-          ACL.setWriteAccess(setWriteAccess, forUserId: k)
-        }
+extension PFACL {
+  convenience init(dictionary:JSONObject) {
+    self.init()
+    for (k,v) in dictionary {
+      let setReadAccess = v["read"] as? Bool == true
+      let setWriteAccess = v["write"] as? Bool == true
+      
+      if k == "*" {
+        self.publicReadAccess = setReadAccess
+        self.publicWriteAccess = setWriteAccess
+      } else if let _ = k.rangeOfString("role:") {
+        let roleName = k.stringByReplacingOccurrencesOfString("role:", withString: "")
+        self.setReadAccess(setReadAccess, forRoleWithName: roleName)
+        self.setWriteAccess(setWriteAccess, forRoleWithName: roleName)
+      } else {
+        self.setReadAccess(setReadAccess, forUserId: k)
+        self.setWriteAccess(setWriteAccess, forUserId: k)
       }
-      parseObject.ACL = ACL
     }
+  }
+}
+
+extension PFObject {
+  static func mockedServerObject(className: String, objectId:String,data:JSONObject) -> PFObject {
+    
+    var dictionary = data;
+    if let acl = data["ACL"] as? JSONObject {
+      dictionary["ACL"] = PFACL(dictionary: acl)
+    }
+    // Remove objectId
+    dictionary["objectId"] = nil
+    let parseObject = PFObject(className: className, dictionary: dictionary)
+    parseObject.objectId = objectId
     // Let parse SDK think it was updated from the server
     parseObject.setValue(data, forKeyPath: "_estimatedData._dataDictionary")
     parseObject.setValue(data, forKeyPath: "_pfinternal_state._serverData")
