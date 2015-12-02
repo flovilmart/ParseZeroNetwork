@@ -89,11 +89,8 @@ struct RelationImporter:Importer {
             
             let relatedObjects = relations.1
             let relation = sourceObject.relationForKey(ownerKey)
-            for var object in relatedObjects {
-              do {
-                object = try object.fetchFromLocalDatastore()
-                relation.addObject(object)
-              } catch {}
+            for object in relatedObjects {
+              relation.addObject(object)
             }
             
             return sourceObject.pinInBackground().continueWithSuccessBlock({ task in
