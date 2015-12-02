@@ -76,12 +76,9 @@ struct RelationImporter:Importer {
     }.map { (relations) -> BFTask in
       
       let owningId = relations.0
-      
+      let sourceObject = PFObject(withoutDataWithClassName: ownerClassName, objectId: owningId)
       // Fetch the owning id
-      return PFQuery(className: ownerClassName, predicate: NSPredicate(format: "objectId == %@", owningId))
-          .fromLocalDatastore()
-          .ignoreACLs()
-          .getFirstObjectInBackground()
+      return sourceObject.fetchFromLocalDatastoreInBackground()
           .continueWithBlock({ (task) -> AnyObject! in
             guard let sourceObject = task.result as? PFObject else {
               return BFTask(result: "Object not found \(ownerClassName) \(owningId)")

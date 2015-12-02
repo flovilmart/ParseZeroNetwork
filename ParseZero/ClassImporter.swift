@@ -14,29 +14,46 @@ internal struct ClassImporter: Importer {
   
   static func importOnKeyName(className: String, _ objects: ResultArray) -> BFTask {
     // Create a task that waits for all to complete
-    return objects.map { (objectJSON) -> BFTask in
-      
-      guard let objectId = objectJSON["objectId"] as? String else {
-        return BFTask.pzero_error(.MissingObjectIdKey)
-      }
-      
-      let query = PFQuery(className: className, predicate: NSPredicate(format: "objectId == %@", objectId))
-      query.limit = 1;
-      return query
-        .fromLocalDatastore()
-        .ignoreACLs()
-        .findObjectsInBackground()
-        .continueWithBlock({ (task) -> AnyObject! in
-          
-          if let results = task.result as? [PFObject] where results.count == 0 || task.error != nil {
-            return self.pinObject(className, objectId: objectId, objectJSON: objectJSON)
+    let query = PFQuery(className: className)
+    query.limit = 1;
+    
+    return query
+      .fromLocalDatastore()
+      .ignoreACLs()
+      .findObjectsInBackground()
+      .continueWithBlock({ (task) -> AnyObject? in
+        if let result = task.result as? [PFObject] where result.count > 0 {
+        
+          return BFTask(result: "Not updating \(className)")
+        
+        }
+        var erroredTasks = [BFTask]()
+        
+        let pfObjects = objects.map { (objectJSON) -> BFTask in
+            
+            guard let objectId = objectJSON["objectId"] as? String else {
+              return BFTask.pzero_error(.MissingObjectIdKey)
+            }
+            return BFTask(result: PFObject.mockedServerObject(className, objectId: objectId, data: objectJSON))
+            
+        }.filter({ (task) -> Bool in
+          if task.result is PFObject {
+            return true
+          } else {
+            erroredTasks.append(task)
+            return false
           }
-          
-          return BFTask(result: "Not updating \(className) \(objectId)")
-          
+        }).map({ (task) -> PFObject in
+          return task.result as! PFObject
         })
+        
+        if erroredTasks.count > 0 {
+          return erroredTasks.taskForCompletionOfAll()
+        }
+        
+        return PFObject.pinAllInBackground(pfObjects)
 
-    }.taskForCompletionOfAll()
+      })
   }
   
   
