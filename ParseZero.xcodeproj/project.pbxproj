@@ -31,6 +31,7 @@
 		4AD907221C03DF88004C2CFC /* _Join:bs:ClassA:ClassB.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AD9071C1C03DF7E004C2CFC /* _Join:bs:ClassA:ClassB.json */; };
 		4AD907231C03DF88004C2CFC /* ClassA.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AD9071D1C03DF7E004C2CFC /* ClassA.json */; };
 		4AD907241C03DF88004C2CFC /* ClassB.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AD9071E1C03DF7E004C2CFC /* ClassB.json */; };
+		4AEF7F161C0F82640054868D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEF7F151C0F82640054868D /* Logger.swift */; };
 		4AF827851C0381C400C51B6B /* ParseZero.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AF827841C0381C400C51B6B /* ParseZero.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4AF8278C1C0381C400C51B6B /* ParseZero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827811C0381C400C51B6B /* ParseZero.framework */; };
 		4AF827911C0381C400C51B6B /* ParseZeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827901C0381C400C51B6B /* ParseZeroTests.swift */; };
@@ -95,6 +96,7 @@
 		4AD9071C1C03DF7E004C2CFC /* _Join:bs:ClassA:ClassB.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "_Join:bs:ClassA:ClassB.json"; sourceTree = "<group>"; };
 		4AD9071D1C03DF7E004C2CFC /* ClassA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClassA.json; sourceTree = "<group>"; };
 		4AD9071E1C03DF7E004C2CFC /* ClassB.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClassB.json; sourceTree = "<group>"; };
+		4AEF7F151C0F82640054868D /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		4AF827811C0381C400C51B6B /* ParseZero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ParseZero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF827841C0381C400C51B6B /* ParseZero.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseZero.h; sourceTree = "<group>"; };
 		4AF827861C0381C400C51B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			children = (
 				4AF827841C0381C400C51B6B /* ParseZero.h */,
 				4AF8279B1C03827100C51B6B /* ParseZero.swift */,
+				4AEF7F151C0F82640054868D /* Logger.swift */,
 				4AF827C71C038CB700C51B6B /* ParseZeroError.swift */,
 				4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */,
 				4A8967991C0DFC3000D52EBE /* PFObject+Additions.swift */,
@@ -433,6 +436,7 @@
 				4AF827C81C038CB700C51B6B /* ParseZeroError.swift in Sources */,
 				4AF8279C1C03827100C51B6B /* ParseZero.swift in Sources */,
 				4AF827A61C0385BD00C51B6B /* Importer.swift in Sources */,
+				4AEF7F161C0F82640054868D /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

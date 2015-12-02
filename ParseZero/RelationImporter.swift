@@ -52,8 +52,11 @@ struct RelationImporter:Importer {
     let ownerClassName = relationDefinition.ownerClassName
     let targetClassName = relationDefinition.targetClassName
     let ownerKey = relationDefinition.key
-        
+    let d0 = NSDate.timeIntervalSinceReferenceDate()
+    pzero_log("Importing relations on", ownerClassName, ":", ownerKey, "->", targetClassName)
+    
     if let error = self.validateObjects(objects) {
+      pzero_log("Found invalid objects", error)
       return error
     }
     
@@ -77,6 +80,8 @@ struct RelationImporter:Importer {
       
       let owningId = relations.0
       let sourceObject = PFObject(withoutDataWithClassName: ownerClassName, objectId: owningId)
+      let d1 = NSDate.timeIntervalSinceReferenceDate()
+      pzero_log("Processing relations for", ownerClassName, ":", owningId, "->", relations.1.count, "objects")
       // Fetch the owning id
       return sourceObject.fetchFromLocalDatastoreInBackground()
           .continueWithBlock({ (task) -> AnyObject! in
@@ -100,11 +105,15 @@ struct RelationImporter:Importer {
               let ids = relatedObjects.map({ (object) -> String in
                 return object.objectId!
               })
+              pzero_log("🎉 Done relations for", ownerClassName, ":", owningId, "->", relations.1.count, "objects", "in", NSDate.timeIntervalSinceReferenceDate() - d1)
               return BFTask(result: "Saved Relations from:\(ownerClassName) \(sourceObject.objectId)\nto \(targetClassName) - \(ids)")
             })
         })
       
-    }.taskForCompletionOfAll()
+    }.taskForCompletionOfAll().continueWithBlock({ (task) -> AnyObject? in
+      pzero_log("🎉 🎉 Done importing relations on", ownerClassName, ":", ownerKey, "->", targetClassName, "in", NSDate.timeIntervalSinceReferenceDate() - d0)
+      return task
+    })
   }
   
 }

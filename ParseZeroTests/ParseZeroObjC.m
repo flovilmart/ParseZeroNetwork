@@ -28,6 +28,7 @@
 
 - (void)setUp {
     [super setUp];
+    ParseZero.trace = YES;
     [ParseZeroObjC initializeParse];
 }
 

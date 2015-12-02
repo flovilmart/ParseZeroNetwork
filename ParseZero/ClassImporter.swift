@@ -14,6 +14,8 @@ internal struct ClassImporter: Importer {
   
   static func importOnKeyName(className: String, _ objects: ResultArray) -> BFTask {
     // Create a task that waits for all to complete
+    pzero_log("Importing", objects.count, "for class ", className)
+    let d0 = NSDate.timeIntervalSinceReferenceDate()
     let query = PFQuery(className: className)
     query.limit = 1;
     
@@ -23,7 +25,7 @@ internal struct ClassImporter: Importer {
       .findObjectsInBackground()
       .continueWithBlock({ (task) -> AnyObject? in
         if let result = task.result as? [PFObject] where result.count > 0 {
-        
+          pzero_log("Skipping import for ", className)
           return BFTask(result: "Not updating \(className)")
         
         }
@@ -51,7 +53,10 @@ internal struct ClassImporter: Importer {
           return erroredTasks.taskForCompletionOfAll()
         }
         
-        return PFObject.pinAllInBackground(pfObjects)
+        return PFObject.pinAllInBackground(pfObjects).continueWithBlock({ (task) -> AnyObject? in
+          pzero_log("🎉 🎉 Successfully imported", pfObjects.count, "on", className, "in", NSDate.timeIntervalSinceReferenceDate()-d0)
+          return task
+        })
 
       })
   }

@@ -106,7 +106,7 @@ public class ParseZero: NSObject {
     let files = contents.map { (filePath) -> NSURL in
       NSURL(fileURLWithPath: path).URLByAppendingPathComponent(filePath)
     }
-    
+    pzero_log(files)
     return loadFiles(files)
   }
   
@@ -136,5 +136,8 @@ public class ParseZero: NSObject {
       return RelationImporter.importFiles(urls.joins).mergeResultsWith(task)
     })
   }
+  
+  /// set to true to log the trace of the imports
+  public static var trace:Bool = false
   
 }

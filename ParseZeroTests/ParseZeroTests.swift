@@ -19,6 +19,7 @@ class ParseZeroTests: XCTestCase {
     override func setUp() {
       super.setUp()
       ParseZeroObjC.initializeParse()
+      ParseZero.trace = true;
     }
     
     override func tearDown() {
