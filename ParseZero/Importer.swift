@@ -26,7 +26,7 @@ internal extension Importer {
   internal static func importFiles(files: [NSURL]) -> BFTask {
     
     return files.map {
-      importFileAtURL($0)
+      return importFileAtURL($0)
     }.taskForCompletionOfAll()
     
   }
@@ -34,7 +34,7 @@ internal extension Importer {
   internal static func importAll(tuples: [ResultTuple]) -> BFTask
   {
     return tuples.map {
-       importOnKeyName($0.0, $0.1)
+       return importOnKeyName($0.0, $0.1)
     }.taskForCompletionOfAll()
   }
   

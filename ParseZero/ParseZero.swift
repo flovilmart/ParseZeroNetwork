@@ -131,6 +131,7 @@ public class ParseZero: NSObject {
       }
       return memo
     }
+
     return ClassImporter.importFiles(urls.classes).then({ (task) -> AnyObject! in
       return RelationImporter.importFiles(urls.joins).mergeResultsWith(task)
     })

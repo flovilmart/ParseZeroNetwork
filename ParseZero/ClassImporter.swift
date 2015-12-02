@@ -20,20 +20,22 @@ internal struct ClassImporter: Importer {
         return BFTask.pzero_error(.MissingObjectIdKey)
       }
       
-      return PFQuery(className: className, predicate: NSPredicate(format: "objectId == %@", objectId))
+      let query = PFQuery(className: className, predicate: NSPredicate(format: "objectId == %@", objectId))
+      query.limit = 1;
+      return query
         .fromLocalDatastore()
         .ignoreACLs()
         .findObjectsInBackground()
         .continueWithBlock({ (task) -> AnyObject! in
           
-          if let objects = task.result as? [PFObject] where objects.count == 0 || task.result == nil || task.error != nil {
+          if let results = task.result as? [PFObject] where results.count == 0 || task.error != nil {
             return self.pinObject(className, objectId: objectId, objectJSON: objectJSON)
           }
           
           return BFTask(result: "Not updating \(className) \(objectId)")
           
         })
-    
+
     }.taskForCompletionOfAll()
   }
   

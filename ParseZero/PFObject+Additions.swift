@@ -41,12 +41,21 @@ extension PFObject {
     dictionary["objectId"] = nil
     let parseObject = PFObject(className: className, dictionary: dictionary)
     parseObject.objectId = objectId
-    // Let parse SDK think it was updated from the server
-    parseObject.setValue(data, forKeyPath: "_estimatedData._dataDictionary")
-    parseObject.setValue(data, forKeyPath: "_pfinternal_state._serverData")
-    parseObject.setValue(parseObject.createdAt, forKeyPath: "_pfinternal_state._createdAt")
-    parseObject.setValue(parseObject.updatedAt, forKeyPath: "_pfinternal_state._updatedAt")
     
+    // Let parse SDK think it was updated from the server
+    parseObject.setValue(dictionary, forKeyPath: "_estimatedData._dataDictionary")
+    parseObject.cleanupOperationQueue()
     return parseObject
   }
+  
+  func cleanupOperationQueue() {
+    if let operationSetQueue = self.valueForKey("operationSetQueue") as? [AnyObject] where operationSetQueue.count == 1 {
+      operationSetQueue.first?.setValue([:], forKey: "_dictionary")
+    }
+    let data = self.valueForKeyPath("_estimatedData._dataDictionary")
+    self.setValue(data, forKeyPath: "_pfinternal_state._serverData")
+    self.setValue(self.createdAt, forKeyPath: "_pfinternal_state._createdAt")
+    self.setValue(self.updatedAt, forKeyPath: "_pfinternal_state._updatedAt")
+  }
+
 }

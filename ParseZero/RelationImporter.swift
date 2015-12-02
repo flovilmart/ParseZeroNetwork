@@ -79,25 +79,35 @@ struct RelationImporter:Importer {
       
       // Fetch the owning id
       return PFQuery(className: ownerClassName, predicate: NSPredicate(format: "objectId == %@", owningId))
-        .fromLocalDatastore()
-        .ignoreACLs()
-        .findObjectsInBackground()
-        .continueWithBlock({ (task) -> AnyObject! in
-          guard let results = task.result as? [PFObject], let sourceObject = results.first else {
-            return task
-          }
-          
-          let relatedObjects = relations.1
-          for object in relatedObjects {
-            sourceObject.relationForKey(ownerKey).addObject(object)
-          }
-          
-          return sourceObject.pinInBackground().continueWithSuccessBlock({ (task) -> AnyObject! in
-            let ids = relatedObjects.map({ (object) -> String in
-              return object.objectId!
+          .fromLocalDatastore()
+          .ignoreACLs()
+          .getFirstObjectInBackground()
+          .continueWithBlock({ (task) -> AnyObject! in
+            guard let sourceObject = task.result as? PFObject else {
+              return BFTask(result: "Object not found \(ownerClassName) \(owningId)")
+            }
+            
+            let relatedObjects = relations.1
+            let relation = sourceObject.relationForKey(ownerKey)
+            for var object in relatedObjects {
+              do {
+                object = try object.fetchFromLocalDatastore()
+                relation.addObject(object)
+              } catch {}
+            }
+            
+            return sourceObject.pinInBackground().continueWithSuccessBlock({ task in
+              sourceObject.cleanupOperationQueue()
+              let estimatedData = sourceObject.valueForKeyPath("_estimatedData._dataDictionary")
+              sourceObject.setValue(estimatedData, forKeyPath: "_pfinternal_state._serverData")
+              return sourceObject.pinInBackground()
+             
+            }).continueWithSuccessBlock({ (task) -> AnyObject! in
+              let ids = relatedObjects.map({ (object) -> String in
+                return object.objectId!
+              })
+              return BFTask(result: "Saved Relations from:\(ownerClassName) \(sourceObject.objectId)\nto \(targetClassName) - \(ids)")
             })
-            return BFTask(result: "Saved Relations from:\(ownerClassName) \(sourceObject.objectId)\nto \(targetClassName) - \(ids)")
-          })
         })
       
     }.taskForCompletionOfAll()
