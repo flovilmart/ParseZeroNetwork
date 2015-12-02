@@ -16,7 +16,7 @@ internal extension BFTask {
   }
   
   func then(block: BFContinuationBlock) -> BFTask {
-    return continueWithBlock(block)
+    return continueWithSuccessBlock(block)
   }
   
   func mergeResultsWith(task: BFTask) -> BFTask

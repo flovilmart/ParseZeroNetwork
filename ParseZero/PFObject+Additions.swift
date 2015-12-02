@@ -39,11 +39,11 @@ extension PFObject {
     }
     // Remove objectId
     dictionary["objectId"] = nil
+    
     let parseObject = PFObject(className: className, dictionary: dictionary)
     parseObject.objectId = objectId
     
     // Let parse SDK think it was updated from the server
-    parseObject.setValue(dictionary, forKeyPath: "_estimatedData._dataDictionary")
     parseObject.cleanupOperationQueue()
     return parseObject
   }

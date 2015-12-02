@@ -92,27 +92,29 @@
   NSArray *objs = [[[PFQuery queryWithClassName:@"ClassB"] fromPin] findObjects];
   
   XCTAssertEqual([objs count], 3);
+  
+  PFObject *A2 = [[PFObject objectWithoutDataWithClassName:@"ClassA" objectId:@"2"] fetchFromLocalDatastore];
+  PFObject *A1 = [[PFObject objectWithoutDataWithClassName:@"ClassA" objectId:@"1"] fetchFromLocalDatastore];
   // Test if the relation is properly set
-  NSArray *objects = [[[[[[[PFObject objectWithoutDataWithClassName:@"ClassA" objectId:@"2"] fetchFromLocalDatastore] relationForKey:@"bs"] query] fromPin] ignoreACLs] findObjects];
+  NSArray *objects = [[[[[A2 relationForKey:@"bs"] query] fromPin] ignoreACLs] findObjects];
   
   XCTAssertEqual([objects count], 1);
   [self ensureOperationSetQueueIsEmpty:objs];
     // Test if the relations are properly set
   NSError *error;
- objects = [[[[[[[PFObject objectWithoutDataWithClassName:@"ClassA" objectId:@"1"] fetchFromLocalDatastore] relationForKey:@"bs"] query] fromPin] ignoreACLs] findObjects:&error];
+ objects = [[[[[A1 relationForKey:@"bs"] query] fromPin] ignoreACLs] findObjects:&error];
   XCTAssertEqual([objects count], 3);
   XCTAssertNil(error);
   [self ensureOperationSetQueueIsEmpty:objects];
   
 
-  objects = [[[[[[[PFObject objectWithoutDataWithClassName:@"ClassA" objectId:@"1"] fetchFromLocalDatastore] relationForKey:@"bs"] query] fromLocalDatastore] ignoreACLs] findObjects];
+  objects = [[[[[A1 relationForKey:@"bs"] query] fromLocalDatastore] ignoreACLs] findObjects];
   XCTAssertEqual([objects count], 3);
   [self ensureOperationSetQueueIsEmpty:objs];
   // Fetch A1 to test if the Pointer is properly set
-  PFObject *a1 = [[PFObject objectWithoutDataWithClassName:@"ClassA" objectId:@"1"]fetchFromLocalDatastore];
-  NSString *bName = [a1[@"b"] fetchFromLocalDatastore][@"name"];
+  NSString *bName = [A1[@"b"] fetchFromLocalDatastore][@"name"];
   XCTAssert([bName isEqualToString:@"Object4"], @"bname should be set to Object4");
-   [self ensureOperationSetQueueIsEmpty:@[a1]];
+   [self ensureOperationSetQueueIsEmpty:@[A1]];
 }
 
 - (void)ensureOperationSetQueueIsEmpty:(NSArray *)objects {

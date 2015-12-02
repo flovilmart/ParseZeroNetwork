@@ -80,7 +80,6 @@ struct RelationImporter:Importer {
       
       let owningId = relations.0
       let sourceObject = PFObject(withoutDataWithClassName: ownerClassName, objectId: owningId)
-      let d1 = NSDate.timeIntervalSinceReferenceDate()
       pzero_log("Processing relations for", ownerClassName, ":", owningId, "->", relations.1.count, "objects")
       // Fetch the owning id
       return sourceObject.fetchFromLocalDatastoreInBackground()
@@ -94,6 +93,7 @@ struct RelationImporter:Importer {
             for object in relatedObjects {
               relation.addObject(object)
             }
+            let d1 = NSDate.timeIntervalSinceReferenceDate()
             
             return sourceObject.pinInBackground().continueWithSuccessBlock({ task in
               sourceObject.cleanupOperationQueue()
