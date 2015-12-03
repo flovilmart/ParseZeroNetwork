@@ -33,11 +33,6 @@ internal extension Importer {
   
   internal static func importAll(tuples: [ResultTuple]) -> BFTask
   {
-//    return tuples.reduce(BFTask(result: nil), combine: { (task, tuple) -> T in
-//      return task.continueWithBlock({ (task) -> AnyObject? in
-//        return importOnKeyName(tuple.0, tuple.1).mergeResultsWith(task)
-//      })
-//    })
     return tuples.reduce(BFTask(result: nil), combine: { (task, tuple) -> BFTask in
       return task.continueWithBlock({ (task) -> AnyObject? in
         return importOnKeyName(tuple.0, tuple.1).mergeResultsWith(task)
