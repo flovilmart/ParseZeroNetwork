@@ -52,7 +52,15 @@ extension PFObject {
     if let operationSetQueue = self.valueForKey("operationSetQueue") as? [AnyObject] where operationSetQueue.count == 1 {
       operationSetQueue.first?.setValue([:], forKey: "_dictionary")
     }
-    let data = self.valueForKeyPath("_estimatedData._dataDictionary")
+    var data = self.valueForKeyPath("_estimatedData._dataDictionary") as! JSONObject
+//    for kv in data {
+//      if let pointer = kv.1 as? JSONObject where pointer["__type"] as? String == "Pointer",
+//      let className = pointer["className"] as? String,
+//      let objectId = pointer["objectId"] as? String {
+//        data[kv.0] = PFObject(withoutDataWithClassName: className, objectId: objectId)
+//      }
+//    }
+//    self.setValue(data, forKeyPath: "_estimatedData._dataDictionary")
     self.setValue(data, forKeyPath: "_pfinternal_state._serverData")
     self.setValue(self.createdAt, forKeyPath: "_pfinternal_state._createdAt")
     self.setValue(self.updatedAt, forKeyPath: "_pfinternal_state._updatedAt")

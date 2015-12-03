@@ -97,8 +97,6 @@ struct RelationImporter:Importer {
             
             return sourceObject.pinInBackground().continueWithSuccessBlock({ task in
               sourceObject.cleanupOperationQueue()
-              let estimatedData = sourceObject.valueForKeyPath("_estimatedData._dataDictionary")
-              sourceObject.setValue(estimatedData, forKeyPath: "_pfinternal_state._serverData")
               return sourceObject.pinInBackground()
              
             }).continueWithSuccessBlock({ (task) -> AnyObject! in

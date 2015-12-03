@@ -60,15 +60,5 @@ internal struct ClassImporter: Importer {
 
       })
   }
-  
-  
-  private static func pinObject(className: String, objectId: String, objectJSON: JSONObject) -> BFTask {
-    
-    let parseObject = PFObject.mockedServerObject(className, objectId: objectId, data: objectJSON)
-    
-    return parseObject.pinInBackground().continueWithSuccessBlock({ (task) -> AnyObject! in
-      return BFTask(result: "Saved \(className) \(objectId)")
-    })
-  }
 
 }

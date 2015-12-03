@@ -30,6 +30,10 @@
     [super setUp];
     ParseZero.trace = YES;
     [ParseZeroObjC initializeParse];
+  NSArray *as = [[[PFQuery queryWithClassName:@"ClassA"] fromLocalDatastore] findObjects];
+  [PFObject unpinAll:as];
+  NSArray *bs = [[[PFQuery queryWithClassName:@"ClassB"] fromLocalDatastore] findObjects];
+  [PFObject unpinAll:bs];
 }
 
 - (void)tearDown {
@@ -48,12 +52,15 @@
   XCTestExpectation *expectation  = [self expectationWithDescription:@"Wait for it"];
   NSString *objectsFile = [[NSBundle bundleForClass:[ParseZeroObjC class]] pathForResource:@"AllObjects" ofType:@"json"];
   
-  [[ParseZero loadJSONAtPath:objectsFile] continueWithBlock:^id(BFTask *task) {
+  [[[ParseZero loadJSONAtPath:objectsFile] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
     XCTAssert(task.exception == nil);
     NSLog(@"%@", task.result);
     [self checkIntegrity];
-    
+    return task;
+  }] continueWithBlock:^id(BFTask *task) {
+    XCTAssert(task.error == nil);
+    XCTAssert(task.exception == nil);
     [expectation fulfill];
     return nil;
   }];
@@ -68,12 +75,16 @@
   XCTestExpectation *expectation  = [self expectationWithDescription:@"Wait for it"];
   NSString *objectsDirectory = [[NSBundle bundleForClass:[ParseZeroObjC class]].bundlePath stringByAppendingString:@"/ParseObjects"];
   
-  [[ParseZero loadDirectoryAtPath:objectsDirectory] continueWithBlock:^id(BFTask *task) {
+  [[[ParseZero loadDirectoryAtPath:objectsDirectory] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
     XCTAssert(task.exception == nil);
     [self checkIntegrity];
-     [expectation fulfill];
     return task;
+  }] continueWithBlock:^id(BFTask *task) {
+    XCTAssert(task.error == nil);
+    XCTAssert(task.exception == nil);
+    [expectation fulfill];
+    return nil;
   }];
   
   [self waitForExpectationsWithTimeout:3000 handler:nil];
