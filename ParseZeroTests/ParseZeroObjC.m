@@ -57,7 +57,7 @@
 
   [[[ParseZero loadJSONAtPath:[self objectsFile]] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
-    XCTAssert(task.exception == nil);
+    XCTAssert(task.exception == nil, @"Should have no exception %@", task.exception);
     NSLog(@"%@", task.result);
     [self checkIntegrity];
     return task;
@@ -76,19 +76,19 @@
 
   [[[[ParseZero loadJSONAtPath:[self objectsFile]] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
-    XCTAssert(task.exception == nil);
+    XCTAssert(task.exception == nil, @"Should have no exception %@", task.exception);
     NSLog(@"%@", task.result);
     [self checkIntegrity];
     return [ParseZero loadDirectoryAtPath:[self objectsDirectory]];
   }] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
-    XCTAssert(task.exception == nil);
+    XCTAssert(task.exception == nil, @"Should have no exception %@", task.exception);
     NSLog(@"%@", task.result);
     [self checkIntegrity];
     return task;
   }] continueWithBlock:^id(BFTask *task) {
     XCTAssertNil(task.error);
-    XCTAssertNil(task.exception);
+    XCTAssert(task.exception == nil, @"Should have no exception %@", task.exception);
     [expectation fulfill];
     return nil;
   }];
@@ -104,12 +104,12 @@
 
   [[[ParseZero loadDirectoryAtPath:[self objectsDirectory]] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
-    XCTAssert(task.exception == nil);
+    XCTAssert(task.exception == nil, @"Should have no exception %@", task.exception);
     [self checkIntegrity];
     return task;
   }] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
-    XCTAssert(task.exception == nil);
+    XCTAssert(task.exception == nil, @"Should have no exception %@", task.exception);
     [expectation fulfill];
     return nil;
   }];
