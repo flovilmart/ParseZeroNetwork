@@ -32,6 +32,13 @@ internal extension BFTask {
       results = [AnyObject]()
     }
     
+    if let error = task.error {
+      results.append(error)
+    }
+    if let exception = task.exception {
+      results.append(exception)
+    }
+    
     return self.continueWithBlock({ (otherTask) -> AnyObject! in
       
       if let result:AnyObject = otherTask.result where otherTask.completed {
@@ -40,6 +47,13 @@ internal extension BFTask {
         } else {
           results.append(result)
         }
+      }
+      
+      if let error = otherTask.error {
+        results.append(error)
+      }
+      if let exception = otherTask.exception {
+        results.append(exception)
       }
       return BFTask(result: results)
     })

@@ -26,23 +26,7 @@ class ParseZeroTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-      PFQuery.clearAllCachedResults()
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-      let expectation = self.expectationWithDescription("Wait for it...")
       
-      ParseZero.loadDirectoryAtPath(NSBundle(forClass: ParseZeroTests.self).bundlePath+"/ParseObjects").continueWithBlock { (task) -> AnyObject! in
-        XCTAssert(task.error == nil)
-        XCTAssert(task.exception == nil)
-        expectation.fulfill()
-        return nil
-      }
-      
-      waitForExpectationsWithTimeout(3000.0, handler: nil)
-    }
-  
   func testLoadInvalidFile() {
     XCTAssertNil(ClassImporter.loadFileAtURL(NSURL(fileURLWithPath:"/some/file")))
   }

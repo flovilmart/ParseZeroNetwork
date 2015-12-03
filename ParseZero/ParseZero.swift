@@ -75,12 +75,43 @@ public class ParseZero: NSObject {
       return memo
     }
     
-    return ClassImporter.importAll(result.classes).then({ (task) -> AnyObject! in
-      return RelationImporter.importAll(result.joins).mergeResultsWith(task)
+    return importAll(result)
+  }
+  
+  internal static func importAll(tuples:SplitResultTuples) -> BFTask {
+    return ClassImporter.importAll(tuples.classes).then({ (task) -> AnyObject! in
+      
+      let joins:[ResultTuple]
+      if let result = task.result as? [AnyObject] {
+        
+        let skippedClasses = result.map { (result:AnyObject) -> String? in
+          guard let error = result as? NSError where
+            error.code == PZeroErrorCode.SkippingClass.rawValue else {
+              return nil
+          }
+         return error.userInfo["className"] as? String
+          }.filter({ $0 != nil })
+        
+        joins = tuples.joins.filter { (tuple) -> Bool in
+          let split = tuple.0.componentsSeparatedByString(":")
+          if split.count == 4 {
+            let className = split[2]
+            let include = skippedClasses.indexOf({ $0 == className }) == nil
+            if !include {
+              pzero_log("🎉 🎉 Skipping import relation", split[1], split[2], split[3])
+            }
+            return include
+          }
+          return true
+        }
+      } else {
+        joins = tuples.joins;
+      }
+      
+      return RelationImporter.importAll(joins).mergeResultsWith(task)
     }).continueWithBlock({ (task) -> AnyObject? in
       return processErrors(task)
     })
-
   }
   
   /**
@@ -135,11 +166,15 @@ public class ParseZero: NSObject {
       return memo
     }
 
-    return ClassImporter.importFiles(urls.classes).then({ (task) -> AnyObject! in
-      return RelationImporter.importFiles(urls.joins).mergeResultsWith(task)
-    }).continueWithBlock({ (task) -> AnyObject? in
-      return processErrors(task)
-    })
+    let classesTuples = urls.classes.map { (url) -> ResultTuple in
+      return ClassImporter.loadFileAtURL(url)!
+    }
+    
+    let relationsTuples = urls.joins.map { (url) -> ResultTuple in
+      return RelationImporter.loadFileAtURL(url)!
+    }
+    
+    return importAll((classesTuples, relationsTuples))
   }
   
   /// set to true to log the trace of the imports
