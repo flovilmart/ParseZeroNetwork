@@ -77,7 +77,10 @@ public class ParseZero: NSObject {
     
     return ClassImporter.importAll(result.classes).then({ (task) -> AnyObject! in
       return RelationImporter.importAll(result.joins).mergeResultsWith(task)
+    }).continueWithBlock({ (task) -> AnyObject? in
+      return processErrors(task)
     })
+
   }
   
   /**
@@ -134,10 +137,28 @@ public class ParseZero: NSObject {
 
     return ClassImporter.importFiles(urls.classes).then({ (task) -> AnyObject! in
       return RelationImporter.importFiles(urls.joins).mergeResultsWith(task)
+    }).continueWithBlock({ (task) -> AnyObject? in
+      return processErrors(task)
     })
   }
   
   /// set to true to log the trace of the imports
   public static var trace:Bool = false
   
+}
+
+private extension ParseZero {
+  static func processErrors(task:BFTask) -> BFTask {
+    if let error = task.error,
+      let errors = error.userInfo["errors"] as? [NSError] {
+        return errors.map({ (error) -> BFTask in
+          if error.code == PZeroErrorCode.SkippingClass.rawValue {
+            return BFTask(result: PZeroErrorCode.SkippingClass.localizedDescription())
+          }
+          return BFTask(error: error)
+        }).taskForCompletionOfAll()
+        
+    }
+    return task
+  }
 }

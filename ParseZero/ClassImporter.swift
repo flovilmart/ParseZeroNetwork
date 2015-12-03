@@ -15,19 +15,24 @@ internal struct ClassImporter: Importer {
   static func importOnKeyName(className: String, _ objects: ResultArray) -> BFTask {
     // Create a task that waits for all to complete
     pzero_log("Importing", objects.count, className)
+    
+    let objectIds = objects.filter({ (object) -> Bool in
+      return (object["objectId"] is String)
+    }).map { (object) -> String in
+      return object["objectId"] as! String
+    }
+    
     let d0 = NSDate.timeIntervalSinceReferenceDate()
     let query = PFQuery(className: className)
-    query.limit = 1;
-    
+    query.whereKey("objectId", containedIn: objectIds)
     return query
       .fromLocalDatastore()
       .ignoreACLs()
       .findObjectsInBackground()
       .continueWithBlock({ (task) -> AnyObject? in
-        if let result = task.result as? [PFObject] where result.count > 0 {
+        if let result = task.result as? [PFObject] where result.count >= objects.count {
           pzero_log("🎉 🎉 Skipping import for ", className)
           return BFTask.pzero_error(.SkippingClass, userInfo: ["className":className])
-        
         }
         var erroredTasks = [BFTask]()
         
@@ -55,20 +60,10 @@ internal struct ClassImporter: Importer {
         
         return PFObject.pinAllInBackground(pfObjects).continueWithBlock({ (task) -> AnyObject? in
           pzero_log("🎉 🎉 Successfully imported", pfObjects.count, "on", className, "in", NSDate.timeIntervalSinceReferenceDate()-d0)
-          return task
+          return BFTask(result: "Successfully imported \(pfObjects.count) on \(className)")
         })
 
       })
-  }
-  
-  
-  private static func pinObject(className: String, objectId: String, objectJSON: JSONObject) -> BFTask {
-    
-    let parseObject = PFObject.mockedServerObject(className, objectId: objectId, data: objectJSON)
-    
-    return parseObject.pinInBackground().continueWithSuccessBlock({ (task) -> AnyObject! in
-      return BFTask(result: "Saved \(className) \(objectId)")
-    })
   }
 
 }

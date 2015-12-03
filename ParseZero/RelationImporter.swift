@@ -10,7 +10,8 @@ import Foundation
 import Bolts
 import Parse
 
-typealias PFObjectsMap = [String:[PFObject]]
+typealias StringsMap = [String:[String]]
+
 typealias RelationDefinition = (key:String, ownerClassName:String, targetClassName:String)
 
 
@@ -60,45 +61,44 @@ struct RelationImporter:Importer {
       return error
     }
     
-    return objects.reduce(PFObjectsMap()) { (var memo, object) -> PFObjectsMap in
+    return objects.reduce(StringsMap()) { (var memo, object) -> StringsMap in
       
       // we can force unpack here as it's validated
       let owningId = object["owningId"] as! String
       let relatedId = object["relatedId"] as! String
       
       if memo[owningId] == nil {
-        memo[owningId] = [PFObject]()
+        memo[owningId] = [String]()
       }
       
-      let parseObject = PFObject(withoutDataWithClassName: targetClassName, objectId: relatedId)
-      
-      memo[owningId]!.append(parseObject)
+      memo[owningId]!.append(relatedId)
       
       return memo
       
     }.map { (relations) -> BFTask in
       
       let owningId = relations.0
-      let sourceObject = PFObject(withoutDataWithClassName: ownerClassName, objectId: owningId)
+      let sourceObjectTask = PFObject(withoutDataWithClassName: ownerClassName, objectId: owningId).fetchFromLocalDatastoreInBackground()
       pzero_log("Processing relations for", ownerClassName, ":", owningId, "->", relations.1.count, "objects")
+      
+      let relationTask = PFQuery(className: targetClassName).whereKey("objectId", containedIn: relations.1).fromLocalDatastore().findObjectsInBackground()
       // Fetch the owning id
-      return sourceObject.fetchFromLocalDatastoreInBackground()
+      return BFTask(forCompletionOfAllTasksWithResults: [sourceObjectTask, relationTask])
           .continueWithBlock({ (task) -> AnyObject! in
-            guard let sourceObject = task.result as? PFObject else {
-              return BFTask(result: "Object not found \(ownerClassName) \(owningId)")
+            guard let result = task.result as? [AnyObject] where result.count == 2,
+              let sourceObject = result[0] as? PFObject,
+              let relatedObjects = result[1] as? [PFObject] else {
+                return BFTask(result: "Object not found \(ownerClassName) \(owningId)")
             }
-            
-            let relatedObjects = relations.1
+
             let relation = sourceObject.relationForKey(ownerKey)
-            for object in relatedObjects {
-              relation.addObject(object)
+            for relatedObject in relatedObjects {
+              relation.addObject(relatedObject)
             }
             let d1 = NSDate.timeIntervalSinceReferenceDate()
             
             return sourceObject.pinInBackground().continueWithSuccessBlock({ task in
               sourceObject.cleanupOperationQueue()
-              let estimatedData = sourceObject.valueForKeyPath("_estimatedData._dataDictionary")
-              sourceObject.setValue(estimatedData, forKeyPath: "_pfinternal_state._serverData")
               return sourceObject.pinInBackground()
              
             }).continueWithSuccessBlock({ (task) -> AnyObject! in

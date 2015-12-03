@@ -33,7 +33,7 @@ enum PZeroErrorCode: Int {
     case .MissingObjectIdKey:
       return "The object doesn't have an object id"
     case .SkippingClass:
-      return "The object doesn't have an object id"
+      return "Skipping class"
     }
   }
   
