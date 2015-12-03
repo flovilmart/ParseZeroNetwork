@@ -13,6 +13,14 @@
 
 @implementation ParseZeroObjC
 
+- (NSString *)objectsDirectory {
+   return [[NSBundle bundleForClass:[ParseZeroObjC class]].bundlePath stringByAppendingString:@"/ParseObjects"];
+}
+
+- (NSString *)objectsFile {
+  return [[NSBundle bundleForClass:[ParseZeroObjC class]] pathForResource:@"AllObjects" ofType:@"json"];
+}
+
 + (void)initializeParse
 {
   if (![Parse isLocalDatastoreEnabled]) {
@@ -30,10 +38,6 @@
     [super setUp];
     ParseZero.trace = YES;
     [ParseZeroObjC initializeParse];
-  NSArray *as = [[[PFQuery queryWithClassName:@"ClassA"] fromLocalDatastore] findObjects];
-  [PFObject unpinAll:as];
-  NSArray *bs = [[[PFQuery queryWithClassName:@"ClassB"] fromLocalDatastore] findObjects];
-  [PFObject unpinAll:bs];
 }
 
 - (void)tearDown {
@@ -50,17 +54,41 @@
   // This is an example of a functional test case.
   // Use XCTAssert and related functions to verify your tests produce the correct results.
   XCTestExpectation *expectation  = [self expectationWithDescription:@"Wait for it"];
-  NSString *objectsFile = [[NSBundle bundleForClass:[ParseZeroObjC class]] pathForResource:@"AllObjects" ofType:@"json"];
-  
-  [[[ParseZero loadJSONAtPath:objectsFile] continueWithBlock:^id(BFTask *task) {
+
+  [[[ParseZero loadJSONAtPath:[self objectsFile]] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
     XCTAssert(task.exception == nil);
     NSLog(@"%@", task.result);
     [self checkIntegrity];
     return task;
   }] continueWithBlock:^id(BFTask *task) {
+    XCTAssertNil(task.error);
+    XCTAssertNil(task.exception);
+    [expectation fulfill];
+    return nil;
+  }];
+  
+  [self waitForExpectationsWithTimeout:3000 handler:nil];
+}
+
+- (void)testConsecutiveImports {
+  XCTestExpectation *expectation  = [self expectationWithDescription:@"Wait for it"];
+
+  [[[[ParseZero loadJSONAtPath:[self objectsFile]] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
     XCTAssert(task.exception == nil);
+    NSLog(@"%@", task.result);
+    [self checkIntegrity];
+    return [ParseZero loadDirectoryAtPath:[self objectsDirectory]];
+  }] continueWithBlock:^id(BFTask *task) {
+    XCTAssert(task.error == nil);
+    XCTAssert(task.exception == nil);
+    NSLog(@"%@", task.result);
+    [self checkIntegrity];
+    return task;
+  }] continueWithBlock:^id(BFTask *task) {
+    XCTAssertNil(task.error);
+    XCTAssertNil(task.exception);
     [expectation fulfill];
     return nil;
   }];
@@ -73,9 +101,8 @@
   // This is an example of a functional test case.
   // Use XCTAssert and related functions to verify your tests produce the correct results.
   XCTestExpectation *expectation  = [self expectationWithDescription:@"Wait for it"];
-  NSString *objectsDirectory = [[NSBundle bundleForClass:[ParseZeroObjC class]].bundlePath stringByAppendingString:@"/ParseObjects"];
-  
-  [[[ParseZero loadDirectoryAtPath:objectsDirectory] continueWithBlock:^id(BFTask *task) {
+
+  [[[ParseZero loadDirectoryAtPath:[self objectsDirectory]] continueWithBlock:^id(BFTask *task) {
     XCTAssert(task.error == nil);
     XCTAssert(task.exception == nil);
     [self checkIntegrity];

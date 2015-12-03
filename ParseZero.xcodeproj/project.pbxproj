@@ -32,6 +32,9 @@
 		4AD907231C03DF88004C2CFC /* ClassA.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AD9071D1C03DF7E004C2CFC /* ClassA.json */; };
 		4AD907241C03DF88004C2CFC /* ClassB.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AD9071E1C03DF7E004C2CFC /* ClassB.json */; };
 		4AEF7F161C0F82640054868D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEF7F151C0F82640054868D /* Logger.swift */; };
+		4AF7E9751C10D52F00AB75B2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C51C038C1300C51B6B /* AudioToolbox.framework */; };
+		4AF7E9761C10D53500AB75B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */; };
+		4AF7E9771C10D53700AB75B2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */; };
 		4AF827851C0381C400C51B6B /* ParseZero.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AF827841C0381C400C51B6B /* ParseZero.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4AF8278C1C0381C400C51B6B /* ParseZero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827811C0381C400C51B6B /* ParseZero.framework */; };
 		4AF827911C0381C400C51B6B /* ParseZeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827901C0381C400C51B6B /* ParseZeroTests.swift */; };
@@ -140,9 +143,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF7E9771C10D53700AB75B2 /* libsqlite3.tbd in Frameworks */,
 				4AF8278C1C0381C400C51B6B /* ParseZero.framework in Frameworks */,
+				4AF7E9761C10D53500AB75B2 /* SystemConfiguration.framework in Frameworks */,
 				4A8E7F8A1C080E4500E8AF28 /* Parse.framework in Frameworks */,
 				4A8E7F891C080E4400E8AF28 /* Bolts.framework in Frameworks */,
+				4AF7E9751C10D52F00AB75B2 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

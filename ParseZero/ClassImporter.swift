@@ -15,19 +15,24 @@ internal struct ClassImporter: Importer {
   static func importOnKeyName(className: String, _ objects: ResultArray) -> BFTask {
     // Create a task that waits for all to complete
     pzero_log("Importing", objects.count, className)
+    
+    let objectIds = objects.filter({ (object) -> Bool in
+      return (object["objectId"] is String)
+    }).map { (object) -> String in
+      return object["objectId"] as! String
+    }
+    
     let d0 = NSDate.timeIntervalSinceReferenceDate()
     let query = PFQuery(className: className)
-    query.limit = 1;
-    
+    query.whereKey("objectId", containedIn: objectIds)
     return query
       .fromLocalDatastore()
       .ignoreACLs()
       .findObjectsInBackground()
       .continueWithBlock({ (task) -> AnyObject? in
-        if let result = task.result as? [PFObject] where result.count > 0 {
+        if let result = task.result as? [PFObject] where result.count >= objects.count {
           pzero_log("🎉 🎉 Skipping import for ", className)
           return BFTask.pzero_error(.SkippingClass, userInfo: ["className":className])
-        
         }
         var erroredTasks = [BFTask]()
         
