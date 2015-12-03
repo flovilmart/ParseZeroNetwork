@@ -60,7 +60,7 @@ internal struct ClassImporter: Importer {
         
         return PFObject.pinAllInBackground(pfObjects).continueWithBlock({ (task) -> AnyObject? in
           pzero_log("🎉 🎉 Successfully imported", pfObjects.count, "on", className, "in", NSDate.timeIntervalSinceReferenceDate()-d0)
-          return task
+          return BFTask(result: "Successfully imported \(pfObjects.count) on \(className)")
         })
 
       })
