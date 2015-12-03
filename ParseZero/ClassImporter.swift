@@ -26,7 +26,7 @@ internal struct ClassImporter: Importer {
       .continueWithBlock({ (task) -> AnyObject? in
         if let result = task.result as? [PFObject] where result.count > 0 {
           pzero_log("🎉 🎉 Skipping import for ", className)
-          return BFTask(result: "Not updating \(className)")
+          return BFTask.pzero_error(.SkippingClass, userInfo: ["className":className])
         
         }
         var erroredTasks = [BFTask]()

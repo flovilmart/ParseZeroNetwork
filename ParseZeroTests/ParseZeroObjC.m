@@ -34,7 +34,7 @@
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+  [super tearDown];
   NSArray *as = [[[PFQuery queryWithClassName:@"ClassA"] fromLocalDatastore] findObjects];
   [PFObject unpinAll:as];
   NSArray *bs = [[[PFQuery queryWithClassName:@"ClassB"] fromLocalDatastore] findObjects];

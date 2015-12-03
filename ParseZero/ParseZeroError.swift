@@ -18,6 +18,7 @@ enum PZeroErrorCode: Int {
   case CannotLoadFile
   case InvalidJSON
   case MissingObjectIdKey
+  case SkippingClass
   
   func localizedDescription() -> String {
     switch self {
@@ -30,6 +31,8 @@ enum PZeroErrorCode: Int {
     case .InvalidJSON:
       return "The JSON in the file is badly formed"
     case .MissingObjectIdKey:
+      return "The object doesn't have an object id"
+    case .SkippingClass:
       return "The object doesn't have an object id"
     }
   }
