@@ -3,10 +3,12 @@
             {
               "objectId": "1",
              "b": {
-             "__type": "Pointer",
-             "className": "ClassB",
-             "objectId": "4"
-             }
+              "__type": "Pointer",
+              "className": "ClassB",
+             "  objectId": "4"
+             },
+              "createdAt": "2015-11-09T10:51:29.299Z",
+              "updatedAt": "2015-11-18T12:58:20.989Z"
             },
              {
               "objectId": "2",
@@ -14,10 +16,14 @@
                 "*": {"read": true},
                 "user": {"read": true},
                 "role:administrator": {"read": true, "write": true}
-              }
+              },
+              "createdAt": "2015-11-09T10:51:29.299Z",
+              "updatedAt": "2015-11-18T12:58:20.989Z"
              },
              {
               "objectId": "3",
+              "createdAt": "2015-11-09T10:51:29.299Z",
+              "updatedAt": "2015-11-18T12:58:20.989Z"
              }
   ]
 }

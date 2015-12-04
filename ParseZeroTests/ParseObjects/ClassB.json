@@ -2,13 +2,24 @@
   "results": [
             {
             "objectId": "4",
-             "name": "Object4"
+             "name": "Object4",
+              "createdAt": "2015-11-09T10:51:29.299Z",
+              "updatedAt": "2015-11-18T12:58:20.989Z",
+              "a": {
+                "__type": "Pointer",
+                "className": "ClassA",
+                "objectId": "1"
+              }
             },
              {
-             "objectId": "5"
+             "objectId": "5",
+              "createdAt": "2015-11-09T10:51:29.299Z",
+              "updatedAt": "2015-11-18T12:58:20.989Z"
              },
              {
-             "objectId": "6"
+             "objectId": "6",
+              "createdAt": "2015-11-09T10:51:29.299Z",
+              "updatedAt": "2015-11-18T12:58:20.989Z"
              }
   ]
 }
