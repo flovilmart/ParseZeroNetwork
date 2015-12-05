@@ -29,11 +29,17 @@ internal struct ClassImporter: Importer {
       .fromLocalDatastore()
       .ignoreACLs()
       .findObjectsInBackground()
-      .continueWithBlock({ (task) -> AnyObject? in
-        if let result = task.result as? [PFObject] where result.count >= objects.count {
-          pzero_log("🎉 🎉 Skipping import for ", className)
-          return BFTask.pzero_error(.SkippingClass, userInfo: ["className":className])
-        }
+      .continueWithSuccessBlock({ (task) -> AnyObject? in
+        
+        let resultHash = (task.result as! [PFObject]).reduce([String:PFObject](), combine: { (var hash, object) -> [String:PFObject] in
+          hash[object.objectId!] = object
+          return hash
+        })
+        
+//        if let result = task.result as? [PFObject] where result.count >= objects.count {
+//          pzero_log("🎉 🎉 Skipping import for ", className)
+//          return BFTask.pzero_error(.SkippingClass, userInfo: ["className":className])
+//        }
         var erroredTasks = [BFTask]()
         
         let pfObjects = objects.map { (objectJSON) -> BFTask in
@@ -41,6 +47,10 @@ internal struct ClassImporter: Importer {
             guard let objectId = objectJSON["objectId"] as? String else {
               return BFTask.pzero_error(.MissingObjectIdKey)
             }
+            if let originalObject = resultHash[objectId] {
+              return BFTask(result: originalObject.updateWithDictionary(objectJSON))
+            }
+          
             return BFTask(result: PFObject.mockedServerObject(className, objectId: objectId, data: objectJSON))
             
         }.filter({ (task) -> Bool in

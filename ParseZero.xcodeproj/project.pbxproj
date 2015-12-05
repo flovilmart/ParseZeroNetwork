@@ -35,6 +35,7 @@
 		4AF7E9751C10D52F00AB75B2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C51C038C1300C51B6B /* AudioToolbox.framework */; };
 		4AF7E9761C10D53500AB75B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827C11C038BFE00C51B6B /* SystemConfiguration.framework */; };
 		4AF7E9771C10D53700AB75B2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827BF1C038BF400C51B6B /* libsqlite3.tbd */; };
+		4AF7E97A1C11076D00AB75B2 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF7E9791C11076D00AB75B2 /* DateFormatter.swift */; };
 		4AF827851C0381C400C51B6B /* ParseZero.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AF827841C0381C400C51B6B /* ParseZero.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4AF8278C1C0381C400C51B6B /* ParseZero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF827811C0381C400C51B6B /* ParseZero.framework */; };
 		4AF827911C0381C400C51B6B /* ParseZeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF827901C0381C400C51B6B /* ParseZeroTests.swift */; };
@@ -100,6 +101,7 @@
 		4AD9071D1C03DF7E004C2CFC /* ClassA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClassA.json; sourceTree = "<group>"; };
 		4AD9071E1C03DF7E004C2CFC /* ClassB.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClassB.json; sourceTree = "<group>"; };
 		4AEF7F151C0F82640054868D /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		4AF7E9791C11076D00AB75B2 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		4AF827811C0381C400C51B6B /* ParseZero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ParseZero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF827841C0381C400C51B6B /* ParseZero.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseZero.h; sourceTree = "<group>"; };
 		4AF827861C0381C400C51B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				4AF827C71C038CB700C51B6B /* ParseZeroError.swift */,
 				4AD907181C03C64F004C2CFC /* BFTask+Additions.swift */,
 				4A8967991C0DFC3000D52EBE /* PFObject+Additions.swift */,
+				4AF7E9791C11076D00AB75B2 /* DateFormatter.swift */,
 				4AF827A51C0385BD00C51B6B /* Importer.swift */,
 				4AF827A11C0382D400C51B6B /* ClassImporter.swift */,
 				4AF827A31C0382DE00C51B6B /* RelationImporter.swift */,
@@ -435,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF7E97A1C11076D00AB75B2 /* DateFormatter.swift in Sources */,
 				4AF827A21C0382D400C51B6B /* ClassImporter.swift in Sources */,
 				4AF827A41C0382DE00C51B6B /* RelationImporter.swift in Sources */,
 				4AD907191C03C64F004C2CFC /* BFTask+Additions.swift in Sources */,

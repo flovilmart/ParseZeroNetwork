@@ -33,12 +33,41 @@ extension PFACL {
 extension PFObject {
   static func mockedServerObject(className: String, objectId:String,data:JSONObject) -> PFObject {
     
-    var dictionary = data;
-    // Remove objectId
-    dictionary["objectId"] = nil
     let parseObject = PFObject(className: className)
+    parseObject.updateWithDictionary(data)
+    // Let parse SDK think it was updated from the server
+    return parseObject
+  }
+  
+  func updateWithDictionary(data:JSONObject) -> Self {
+    var dictionary = data;
+
+    // template date
+    let updatedAt = dateFromString(dictionary["updatedAt"] as? String)
+    let createdAt = dateFromString(dictionary["createdAt"] as? String)
+
+    if let createdAt = createdAt  {
+      self.setValue(createdAt, forKeyPath: "_pfinternal_state._createdAt")
+    }
+    if let updatedAt = updatedAt {
+      self.setValue(updatedAt, forKeyPath: "_pfinternal_state._updatedAt")
+    }
+    if let objectId = dictionary["objectId"] as? String {
+      self.setValue(objectId, forKeyPath: "_pfinternal_state._objectId")
+    }
+    
+    // Remove Internals
+    dictionary.removeValueForKey("updatedAt")
+    dictionary.removeValueForKey("createdAt")
+    dictionary.removeValueForKey("objectId")
+    
+    if let sUpdatedAt = self.updatedAt where sUpdatedAt.timeIntervalSince1970 >= updatedAt?.timeIntervalSince1970 {
+      pzero_log("🐷 skipping update...", self.updatedAt, dictionary["updatedAt"])
+      return self
+    }
+    
+
     for kv in dictionary {
-      
       var value = kv.1
       
       if let pointer = value as? JSONObject where pointer["__type"] as? String == "Pointer",
@@ -51,18 +80,13 @@ extension PFObject {
             value = PFObject(withoutDataWithClassName: pointerClassName, objectId: pointerObjectId)
           }
       } else if let acl = value as? JSONObject where kv.0 == "ACL" {
-         value = PFACL(dictionary: acl)
+        value = PFACL(dictionary: acl)
       }
       
-      parseObject[kv.0] = value
+      self[kv.0] = value
     }
-    
-    //let parseObject = PFObject(className: className, dictionary: dictionary)
-    parseObject.objectId = objectId
-    
-    // Let parse SDK think it was updated from the server
-    parseObject.cleanupOperationQueue()
-    return parseObject
+    self.cleanupOperationQueue()
+    return self
   }
   
   func cleanupOperationQueue() {
@@ -71,8 +95,6 @@ extension PFObject {
     }
     let data = self.valueForKeyPath("_estimatedData._dataDictionary") as! JSONObject
     self.setValue(data, forKeyPath: "_pfinternal_state._serverData")
-    self.setValue(self.createdAt, forKeyPath: "_pfinternal_state._createdAt")
-    self.setValue(self.updatedAt, forKeyPath: "_pfinternal_state._updatedAt")
   }
 
 }
