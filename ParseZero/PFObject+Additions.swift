@@ -45,11 +45,6 @@ extension PFObject {
     // template date
     let updatedAt = dateFromString(dictionary["updatedAt"] as? String)
     let createdAt = dateFromString(dictionary["createdAt"] as? String)
-
-//    if let sUpdatedAt = self.updatedAt where sUpdatedAt.timeIntervalSince1970 >= updatedAt?.timeIntervalSince1970 {
-//      pzero_log("🐷 skipping update...", self.updatedAt, updatedAt)
-//      return self
-//    }
     
     if let createdAt = createdAt  {
       self.setValue(createdAt, forKeyPath: "_pfinternal_state._createdAt")
@@ -68,22 +63,46 @@ extension PFObject {
     
 
     for kv in dictionary {
-      var value = kv.1
+      var value:AnyObject? = kv.1
       
-      if let pointer = value as? JSONObject where pointer["__type"] as? String == "Pointer",
-        let pointerClassName = pointer["className"] as? String,
-        let pointerObjectId = pointer["objectId"] as? String {
-          do {
-            try value = PFQuery(className: pointerClassName).fromLocalDatastore()
-              .getObjectWithId(pointerObjectId)
-          } catch {
-            value = PFObject(withoutDataWithClassName: pointerClassName, objectId: pointerObjectId)
+      if let pointer = value as? JSONObject,
+        let type = pointer["__type"] as? String {
+          // Reset the value
+          value = nil
+          switch type {
+            case "Pointer":
+              let pointerClassName = pointer["className"] as! String
+              let pointerObjectId = pointer["objectId"] as? String
+              value = PFObject(withoutDataWithClassName: pointerClassName, objectId: pointerObjectId)
+            case "Date":
+              if let date = dateFromString(pointer["iso"] as? String) {
+                value = date
+              }
+            case "Bytes":
+              if let base64 = pointer["base64"] as? String {
+                value = NSData(base64EncodedString: base64, options: .IgnoreUnknownCharacters)
+              }
+            case "File":
+              if let url = pointer["url"] as? String,
+                let name = pointer["name"] as? String {
+                
+                let file = PFFile(name: name, data: NSData())
+                file?.setValue(url, forKeyPath: "_state._urlString")
+                value = file
+              }
+            case "GeoPoint":
+              value = PFGeoPoint(latitude: pointer["latitude"] as! Double, longitude:pointer["longitude"] as! Double)
+            default:break
           }
-      } else if let acl = value as? JSONObject where kv.0 == "ACL" {
-        value = PFACL(dictionary: acl)
       }
       
-      self[kv.0] = value
+      if let acl = value as? JSONObject where kv.0 == "ACL" {
+          value = PFACL(dictionary: acl)
+      }
+      
+      if let value = value {
+        self[kv.0] = value
+      }
     }
     self.cleanupOperationQueue()
     return self
