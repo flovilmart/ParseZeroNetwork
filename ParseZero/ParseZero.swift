@@ -78,8 +78,53 @@ public class ParseZero: NSObject {
     return importAll(result)
   }
   
+  internal static func hasDataForClasses(classes:[ResultTuple]) -> BFTask {
+    
+    var dict = [String:Int]();
+    return classes.reduce(BFTask(result: nil), combine: { (previousTask, tuple) -> BFTask in
+      dict[tuple.0] = 0
+      return previousTask.then({ (task) -> AnyObject? in
+        return PFQuery(className: tuple.0).fromLocalDatastore().ignoreACLs().countObjectsInBackground()
+      }).then({ (task) -> AnyObject? in
+        dict[tuple.0] = task.result as? Int
+        return BFTask(result: dict)
+      })
+    })
+  }
+  
   internal static func importAll(tuples:SplitResultTuples) -> BFTask {
-    return ClassImporter.importAll(tuples.classes).then({ (task) -> AnyObject! in
+    return hasDataForClasses(tuples.classes).then({ (task) -> AnyObject! in
+    
+      var classes:[ResultTuple]
+      var toDoAndToSkip = ([ResultTuple](),[ResultTuple]())
+      if let result = task.result as? [String:Int] {
+        toDoAndToSkip = tuples.classes.reduce(toDoAndToSkip, combine: { (var value, tuple) -> ([ResultTuple],[ResultTuple]) in
+          if result[tuple.0] == 0 {
+            value.0.append(tuple)
+          } else {
+            value.1.append(tuple)
+          }
+          return value
+        })
+        classes = toDoAndToSkip.0
+      } else {
+        classes = tuples.classes
+      }
+      
+      
+      var skippedClasses:[AnyObject] = toDoAndToSkip.1.map {
+        pzero_log("Found objects on", $0.0, "---", "Skipping")
+        return PZeroErrorCode.SkippingClass.toError(["className": $0.0])
+      }
+      return ClassImporter.importAll(classes).then({ (task) -> AnyObject? in
+      
+        if let result = task.result as? [AnyObject] {
+          skippedClasses.appendContentsOf(result)
+        }
+        return BFTask(result: skippedClasses)
+      })
+    
+    }).then({ (task) -> AnyObject! in
       
       let joins:[ResultTuple]
       if let result = task.result as? [AnyObject] {
@@ -90,7 +135,7 @@ public class ParseZero: NSObject {
               return nil
           }
          return error.userInfo["className"] as? String
-          }.filter({ $0 != nil })
+        }.filter({ $0 != nil })
         
         joins = tuples.joins.filter { (tuple) -> Bool in
           let split = tuple.0.componentsSeparatedByString(":")
@@ -184,16 +229,20 @@ public class ParseZero: NSObject {
 
 private extension ParseZero {
   static func processErrors(task:BFTask) -> BFTask {
-    if let error = task.error,
-      let errors = error.userInfo["errors"] as? [NSError] {
+    if let error = task.error {
+      if let errors = error.userInfo["errors"] as? [NSError] {
         return errors.map({ (error) -> BFTask in
           if error.code == PZeroErrorCode.SkippingClass.rawValue {
             return BFTask(result: PZeroErrorCode.SkippingClass.localizedDescription())
           }
           return BFTask(error: error)
         }).taskForCompletionOfAll()
-        
+      }
+      if error.code == PZeroErrorCode.SkippingClass.rawValue {
+        return BFTask(result: PZeroErrorCode.SkippingClass.localizedDescription())
+      }
     }
+    
     return task
   }
 }

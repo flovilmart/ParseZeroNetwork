@@ -46,6 +46,11 @@ extension PFObject {
     let updatedAt = dateFromString(dictionary["updatedAt"] as? String)
     let createdAt = dateFromString(dictionary["createdAt"] as? String)
 
+//    if let sUpdatedAt = self.updatedAt where sUpdatedAt.timeIntervalSince1970 >= updatedAt?.timeIntervalSince1970 {
+//      pzero_log("🐷 skipping update...", self.updatedAt, updatedAt)
+//      return self
+//    }
+    
     if let createdAt = createdAt  {
       self.setValue(createdAt, forKeyPath: "_pfinternal_state._createdAt")
     }
@@ -60,11 +65,6 @@ extension PFObject {
     dictionary.removeValueForKey("updatedAt")
     dictionary.removeValueForKey("createdAt")
     dictionary.removeValueForKey("objectId")
-    
-    if let sUpdatedAt = self.updatedAt where sUpdatedAt.timeIntervalSince1970 >= updatedAt?.timeIntervalSince1970 {
-      pzero_log("🐷 skipping update...", self.updatedAt, dictionary["updatedAt"])
-      return self
-    }
     
 
     for kv in dictionary {
@@ -95,6 +95,7 @@ extension PFObject {
     }
     let data = self.valueForKeyPath("_estimatedData._dataDictionary") as! JSONObject
     self.setValue(data, forKeyPath: "_pfinternal_state._serverData")
+    self.setValue(true, forKeyPath: "_pfinternal_state._complete")
   }
 
 }
