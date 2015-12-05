@@ -6,6 +6,7 @@ xcode_sdk: iphonesimulator9.1
 before_install:
 - brew update
 - brew install carthage
+- brew upgrade xctool
 before_script:
 - carthage bootstrap
 after_success:
