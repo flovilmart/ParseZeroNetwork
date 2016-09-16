@@ -12,8 +12,10 @@ extension PFACL {
   convenience init(dictionary:JSONObject) {
     self.init()
     for (k,v) in dictionary {
-      let setReadAccess = v["read"] as? Bool == true
-      let setWriteAccess = v["write"] as? Bool == true
+      
+      let value = v as! [String: AnyObject]
+      let setReadAccess = value["read"] as? Bool == true
+      let setWriteAccess = value["write"] as? Bool == true
       
       if k == "*" {
         self.publicReadAccess = setReadAccess
